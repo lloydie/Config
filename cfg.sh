@@ -38,3 +38,8 @@ cfg-vim-vundle-install() {
 
 
 
+setup() {
+    ln -s "$CFG_PATH/vim/vim" "$HOME/.vim"
+    cd ~/.vim/bundle/YouCompleteMe || exit
+    python3 install.py --all
+}

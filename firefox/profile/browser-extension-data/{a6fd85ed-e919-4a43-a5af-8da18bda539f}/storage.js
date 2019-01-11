@@ -1,1 +1,0 @@
-{"updated":false,"consoleSize":30,"size":{"height":594,"width":1000},"origin":{"top":0,"left":0}}
