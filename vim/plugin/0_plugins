@@ -1,0 +1,21 @@
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'ctrlpvim/ctrlp.vim.git'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-fugitive'
+Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-surround'
+"Plugin 'mhinz/vim-startify'
+Plugin 'tpope/vim-commentary'
+Plugin 'gotcha/vimpdb'
+Plugin 'mboughaba/i3config.vim'
+Plugin 'rust-lang/rust.vim'
+
+call vundle#end()

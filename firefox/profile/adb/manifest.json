@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Firefox DevTools ADB Extension",
+  "author": "Mozilla & Android Open Source Project",
+  "version": "0.0.5",
+  "description": "An extension providing ADB binaries for Android remote debugging in Firefox DevTools. May be automatically installed when using WebIDE or about:debugging.",
+  "applications": {
+    "gecko": {
+      "id": "adb@mozilla.org",
+      "strict_min_version": "64.0a1",
+      "update_url": "https://ftp.mozilla.org/pub/labs/devtools/adb-extension/linux64/update.json"
+    }
+  },
+  "permissions": [
+  ],
+  "homepage_url": "https://github.com/mozilla/devtools-adb-extension"
+}

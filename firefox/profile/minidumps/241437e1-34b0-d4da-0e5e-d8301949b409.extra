@@ -1,0 +1,15 @@
+BuildID=20181030165643
+InstallTime=1542009810
+ProductID={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+ProductName=Firefox
+ReleaseChannel=release
+SafeMode=0
+ServerURL=https://crash-reports.mozilla.com/submit?id={ec8030f7-c20a-464f-9b0e-13a3a9e97384}&version=63.0.1&buildid=20181030165643
+StartupCrash=1
+StartupTime=1542346181
+Vendor=Mozilla
+Version=63.0.1
+CrashTime=1542346181
+UptimeTS=.1779145
+MozCrashReason=Failed to get Omnijar AppJar archive for entry (path: "chrome/en-US/locale/branding/brand.properties")
+ThreadIdNameMapping=2622:"Gecko_IOThread",2623:"Link Monitor",2624:"Socket Thread",2625:"JS Watchdog",2629:"JS Helper",2627:"JS Helper",2628:"JS Helper",2626:"JS Helper",2634:"BGReadURLs",

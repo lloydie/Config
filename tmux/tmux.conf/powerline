@@ -1,0 +1,4 @@
+POWERLINE_CONFIG_COMMAND=/usr/bin/powerline-config
+
+run-shell "powerline-daemon -q"
+source /usr/share/powerline/bindings/tmux/powerline.conf

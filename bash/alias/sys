@@ -1,0 +1,1 @@
+alias restart-x='sudo service sddm restart'

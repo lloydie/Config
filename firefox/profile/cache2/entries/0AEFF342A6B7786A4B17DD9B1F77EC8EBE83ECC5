@@ -1,0 +1,1154 @@
+{
+    "firstRun": {
+        "manage_product_catalog": {
+            "label": "Manage application catalog",
+            "message": "Build and manage your application catalog with line-of-business applications, applications for which you already own licenses, and applications from the AWS Marketplace."
+        },
+        "contact_us": "Contact us",
+        "use_cases": "Amazon WAM concepts",
+        "get_started_building_your_catalog": "Get started building your catalog",
+        "documentation_and_support": "Amazon WAM documentation and support",
+        "workspaces_intro": "Amazon WorkSpaces Application Manager (Amazon WAM) offers a fast, flexible, and secure way for you to deploy and manage applications for Amazon WorkSpaces.",
+        "forums": "Forum",
+        "learnMore": {
+            "adding_products": "Learn more",
+            "monitoring": "Learn more",
+            "managing_user_access": "Learn more"
+        },
+        "getting_started_guide": "Getting started guide",
+        "iamOneClickErrors": {
+            "500": "IAM service is down. Please try after sometime.",
+            "403": "You don't have permissions to create IAM roles. Please contact your Administrator.",
+            "decline": "You must allow Amazon WAM permissions to access your Service Catalog resources to continue.",
+            "unknown": "Unexpected error occured. Please contact your administrator."
+        },
+        "documentation": "Documentation",
+        "packaging": "Packaging your own applications",
+        "continue_to_hyperloop_console": "Continue to Amazon WAM Console",
+        "iam_role_detail": "Amazon WAM creates IAM roles within your AWS account that are used to manage your application catalog. You can learn more about the IAM roles that will be created ",
+        "additional_information": "Additional information",
+        "invalid_role_message": "There is an error in the AwsMarketplaceAccessRole IAM role configuration. <br> <br>To use Amazon WAM, you must create the IAM role AWSMarketplaceAccessRole and the policy exactly as specified in the AWS Marketplace Access Role topic in the Amazon WAM Administrator's Guide. Any change to the role or policy will cause a service failure. <br><br> To create the required IAM role, choose Continue.",
+        "workspaces_detail": "You can build your application catalog with line-of-business applications, third party applications for which you own licenses, or applications from the AWS Marketplace for Desktop Apps.  ",
+        "subscription_feature": {
+            "auto_updates": "Support auto updates",
+            "documentation": "Documentation and best practices guide",
+            "usage": "View usage",
+            "byoa": "Bring your own applications",
+            "user_level_access": "Granual access control by user",
+            "directory_level_access": "Control access by directory",
+            "storage": "Up to 100GB storage",
+            "version_control": "Control versions and installation",
+            "mp_access": "Access to AWS Marketplace"
+        },
+        "subscription_selection": {
+            "lite_plan_cost": "Free",
+            "standard_plan_cost": "$5",
+            "select_header": "Select subscription plan"
+        },
+        "invalid_role_message_WAM_Guide": "Amazon WAM Administrator's Guide",
+        "manage_user_access": {
+            "label": "Control user access",
+            "message": "Control access for users and groups in your organization, control application versions, and configure assignment policies."
+        },
+        "track_usage": {
+            "label": "Track usage",
+            "message": "View active usage by applications, version, users or groups."
+        },
+        "invalid_role_message_6": "To create the required IAM role, choose Continue.",
+        "invalid_role_message_5": ". Any change to the role or policy will cause a service failure.",
+        "invalid_role_message_2": " IAM role configuration.",
+        "welcome_to": "Welcome to Amazon WorkSpaces Application Manager (Amazon WAM)",
+        "support": "Amazon WAM support",
+        "invalid_role_message_roleName": "AwsMarketplaceAccessRole",
+        "invalid_role_message_1": "There is an error in the ",
+        "pricing": "Pricing",
+        "invalid_role_message_4": " and the policy exactly as specified in the AWS Marketplace Access Role topic in the ",
+        "invalid_role_header": "WAM IAM role configuration error",
+        "invalid_role_message_3": "To use Amazon WAM, you must create the IAM role "
+    },
+    "noDirectories": {
+        "text1": "To set up active directories, please refer to ",
+        "documentation": "AWS Documentation.",
+        "text": "You do not have any directories."
+    },
+    "usage": {
+        "remove_all_help": "You can remove all application assignments from the selected directory. This will also disable WAM for the selected directory.",
+        "user_usage": "View usage",
+        "select_directory": "Select a directory",
+        "usage": "View Usage",
+        "column": {"label": {
+            "max_installs": "Max installs",
+            "installed": "Installed",
+            "assigned_date": "Assigned date",
+            "total_activations": "Total activations",
+            "assigned_applications": "Assigned applications",
+            "installed_applications": "Installed applications",
+            "version": "Version",
+            "application_name": "Application name",
+            "application": "Application",
+            "billing_type": "Billing type",
+            "assigned_versions": "Assigned versions",
+            "activated_applications": "Activated applications",
+            "total_installs": "Total installs",
+            "username": "Username",
+            "activated": "Activated"
+        }},
+        "directory_*": "Directory:",
+        "view_user_usage": "View user usage report",
+        "view_product_usage": "View application usage report",
+        "users_tab_navigator": "Users",
+        "applications_tab_navigator": "Applications",
+        "removeAll": "Remove all assignments",
+        "intro": "Usage dashboard provides visibility into the license usage. You can view usage by application, or by the users and groups granted access.",
+        "header": "Usage",
+        "noUsers": "No WorkSpaces users have been assigned to the application.",
+        "remove_all_processing": "We are processing your request. Please check back again after a few minutes."
+    },
+    "add_users_to_portfolios": {
+        "roles": "Roles",
+        "groups": "Groups",
+        "description": "Select which users in your account can access to the portfolio and view and launch its applications.",
+        "selected_count": "{selectedGroupCount} {selectedGroupCount, plural, one{group} other{groups}}, {selectedUserCount} {selectedUserCount, plural, one{user} other{users}} and {selectedRoleCount} {selectedRoleCount, plural, one{role} other{roles}} selected",
+        "description_tooltip": "This option will allow the selected principal above to have the View and Launch application permissions so they can see and launch all applications in this portfolio.",
+        "title": "Add users, groups and roles access for {portfolioName}",
+        "add_success": "User(s)/Group(s)/Role(s) successfully added to {portfolioName}.",
+        "no_portfolio_selected_content": "Please select a portfolio from <a href='#/portfolios'>portfolios<\/a> page.",
+        "users": "Users",
+        "add_access": "Add Access",
+        "users_not_selected_content": "Please select a group, user or role to proceed."
+    },
+    "assignToUser": {"localized_display_string": {
+        "Group": "Group",
+        "User": "User"
+    }},
+    "subscription": {
+        "standard_body_link": "WAM Standard",
+        "learn_more": "Learn more",
+        "processing_subscription_phrase": "(processing)",
+        "standard_header": "You are scheduled to be enrolled in the WAM Standard plan starting 8/1/2015.",
+        "lite_plan_button": "Downgrade",
+        "current_subs_plan_text": "Current subscription plan",
+        "standard_pricing": "$5 per user per month",
+        "upgrade_title": "Upgrade to {planName} subscription",
+        "title": "Subscription plan",
+        "ManageInstallLimit": "Manage max installation limits",
+        "VersionControl": "Control versions",
+        "standard_body_2": "is $5 per user per month for each registered WorkSpaces user, after you upgrade.",
+        "standard_body_1": "Your current assignment settings will persist, and you will continue to have granular control and the ability to manage line-of-business applications and third-party applications for which you own licenses. The cost for",
+        "upgrade_title_suffix": "subscription",
+        "switch_to_lite": {
+            "heading": "We are processing your request to switch to WAM Lite.",
+            "confirmation": {
+                "p1": "In WAM Lite you will only be able to manage the application assignment for applications you subscribed from the AWS Marketplace for Desktop Apps. You will not be able to assign users to the applications you uploaded (line-of-business applications and third-party applications for which you own licenses), nor be able to control versions, manage update settings and constraints, or configure installation type.",
+                "p2": "All users in your directories switch to WAM Lite immediately, and you can remove directories at any time",
+                "heading": "You are about to lose the ability to manage your line-of-business applications and to configure the assignment options",
+                "message": "Once you downgrade to WAM Lite, your users\u2019 access to the applications you uploaded (line-of-business applications and third-party applications for which you own licenses) will be removed. Users will be assigned to the latest version of the applications they are assigned to from the AWS Marketplace for Desktop Apps, and the installation type will be set to optional for all applications."
+            },
+            "message": "It will take several minutes to update your user assignments.  You will be able to use all the admin features when the upgrade is complete.<br> You can refresh this page to see your upgrade process.",
+            "pricing": {
+                "heading": "Pricing",
+                "message": "The pricing for the WAM Lite plan is $0 per user per month. Amazon S3 charges may apply for storing your BYO applications. You will be billed for your usage for this billing period for $5 per user per month. If you decide to upgrade to WAM Standard later this month, you will only pay for additional user assigned."
+            }
+        },
+        "PackageLobApp": "Package and upload your line-of-business applications & third party applications for which you own licenses",
+        "AutoUpdate": "Support auto updates",
+        "lite_body_p2_1": "To manage line-of-business applications and third-party applications for which you own licenses, upgrade to ",
+        "Pricing": "Pricing",
+        "lite_body_p2_2": "WAM Standard.",
+        "global_body_p2_1": "To gain granular control or manage line-of-business applications and third-party applications for which you own licenses, ",
+        "global_body_p2_2": " to WAM Standard. The WAM Standard cost of $5 per user per month will apply.",
+        "downgrade_title_prefix": "Downgrade to ",
+        "upgrade_title_prefix": "Upgrade to ",
+        "plan": {
+            "LITE": "WAM Lite",
+            "STANDARD": "WAM Standard"
+        },
+        "plan_features": "Features",
+        "UserGroupAccess": "Manage access for users and groups",
+        "InstallationType": "Manage the installation type",
+        "Usage": "View usage for users and groups",
+        "agreement": {
+            "heading": "Terms and conditions",
+            "message": {
+                "p1": "Your use of this webservice request is subject to the general ",
+                "p2": "Amazon Web Services Agreement",
+                "p3": ", to which you previously agreed."
+            }
+        },
+        "subscription_plan_changed_message": "Can not continue with action because WAM subscription plan has changed",
+        "plan_comparison_text": "Feature comparison",
+        "upgrade": "upgrade",
+        "DeliverLobApp": "Deliver your line-of-business applications & third party applications for which you own licenses",
+        "lite_header": "You are scheduled to be enrolled in the WAM Lite plan starting 8/1/2015.",
+        "MpSubscription": "Subscribe to applications from AWS Marketplace for Desktop Apps",
+        "marketplace_not_available": "AWS Marketplace desktop apps will be available soon",
+        "global_header": "The WAM Standard plan will be effective starting 8/1/2015",
+        "message": "You can view your options and configure the subscription plan here. You can manage applications with pay-by-the-month pricing and no long-term contracts.",
+        "switch_to_standard": {
+            "heading": "We are processing your request to upgrade to WAM Standard.",
+            "confirmation": {
+                "p1": "With the WAM Standard plan, you can assign and manage not only an unlimited number of applications from the AWS Marketplace for Desktop Apps, but also an unlimited number of line-of-business applications and third-party applications for which you own licenses.",
+                "p2": "In additional to the default assignment options available in WAM Lite, you can configure the assignment options such as choosing the versions, the installation type, and the update setting for each application, and managing the constraints for better usage control.",
+                "heading": "You are about to switch to WAM Standard",
+                "message2": "active WorkSpaces users with applications assignment, and those users will billed for a WAM Standard fee. The cost for WAM Standard is $5 per user per month for each user that has been assigned an application. You can change user assignments in WAM Standard at any time.",
+                "message1": "You currently have "
+            },
+            "message": "It will take several minutes to update your user assignments. You will be able to use all the admin features when the upgrade is complete.<br> You can refresh this page to see your upgrade process."
+        },
+        "downgrade_title": "Downgrade to {planName} subscription",
+        "lite_body_p1": "All of your existing users will get the latest version for Marketplace apps immediately, with the installation type set as Optional.",
+        "current_plan_text": "Current plan",
+        "standard_plan_button": "Upgrade",
+        "lite_pricing": "Free",
+        "global_body_p1": "If all of your applications are subscribed to from the AWS Marketplace for Desktop Apps, you will be enrolled in the WAM Lite plan as of 8/1/2015. All users in your directory get the latest version for Marketplace apps with the installation type set as Optional."
+    },
+    "error": {
+        "INTERNAL_SERVER_ERROR": {
+            "title": "Error",
+            "content": "We're sorry. Something went wrong, please try again later."
+        },
+        "CONFLICT": {
+            "title": "Conflicting State",
+            "content": "The current state of your system does not allow your request."
+        },
+        "support_link_validation": "Must start with http:// or https://",
+        "email_validation": "Must be an email address",
+        "numberOfSharedAWSIdExceeded": "You have exceeded the number of AWS accounts (200) with which you can share the application package. Contact AWS Support for increasing this limit.",
+        "invalidAwsAccountId": "That is not a valid AWS account ID.",
+        "maxModifyLimitReached": "You can only update application package permissions for up to 10 AWS accounts at a time.",
+        "INVALID_IDENTIFIER": {
+            "title": "Invalid Identifier",
+            "content": "Invalid Identifier"
+        },
+        "PRINCIPALS_EXCEEDS_LIMIT": "You have exceed the maximum number of user assignments.",
+        "alphanumeric_regex_message": "Should not contain special characters",
+        "RESOURCE_NOT_FOUND": {
+            "title": "Error",
+            "content": "Resource not found"
+        },
+        "default_max_length_message": "Maximum length is {expression}",
+        "INVALID_SEARCH_INPUT": "Invalid input for search.",
+        "BAD_REQUEST": {
+            "title": "Bad request",
+            "content": "Your provided information is ill-formed or illegal."
+        },
+        "default_min_length_message": "Minimum length is {expression}",
+        "general_error": {
+            "title": "We're sorry. Something went wrong.",
+            "content": "Please try again later"
+        },
+        "IDEMPOTENCY_FAILED": {
+            "title": "Idempotency failed",
+            "content": "Idempotency failed"
+        },
+        "alphanumeric_only": "Alphanumeric and underscore only",
+        "RESOURCE_LIMIT_EXCEEDED": {
+            "title": "Limit exceeded",
+            "content": "You have reached the maximum number allowed"
+        },
+        "FORBIDDEN": {
+            "title": "Access denied",
+            "content": "You do not have permissions for that action. Please contact your administrator for access."
+        },
+        "default_regex_message": "Invalid value",
+        "INVALID_USER_SEARCH": "The search string has invalid characters. Valid character types include alphanumeric (A-Z, 0-9) and the following punctuation marks: period (.), comma (,), dash (-), or underscore (_).",
+        "positive_number_regex_message": "Should be a positive number",
+        "RESOURCE_IN_USE": {
+            "title": "Resource in use",
+            "content": "Resource in use"
+        },
+        "default_required_message": "Required"
+    },
+    "products": {
+        "search_placeholder": "Search applications...",
+        "add_to_portfolio_prompt_title": "Select application to add",
+        "productCreatedTitle": "Success",
+        "productCreatedConstraintFailedContent": "We successfully added your application, but the number of maximum installs could not be set. Please try to set this manually later.",
+        "pending": "Pending",
+        "source": "Source: {productSource}",
+        "view_products": "View Applications",
+        "products": "applications",
+        "productCreatedConstraintFailedTitle": "Your application was added, but not all parameters were satisfied.",
+        "product_constraints": {
+            "html_escaped_label": "application constraints",
+            "message": "The maximum number of installations allowed for all application versions, which cannot be less than the current number of installations. If this field is blank, the application has unlimited installations."
+        },
+        "deleteSucceededTitle": "Application Deleted",
+        "subscribed": "AWS Marketplace",
+        "auto_update": "Auto update",
+        "add_to_portfolio_prompt_content": "Select application from the list then click  Add Applications To Portfolio to add it to portfolio {portfolioName}",
+        "uploaded": "Your own applications",
+        "list_products": "List Applications",
+        "productCreatedContent": "You have successfully added your application {createdProductTitle}. It may take a few seconds to appear in the list.",
+        "product": "Application",
+        "active": "Active",
+        "deleteNonemptyProduct": "Application {productTitle} is in one more portfolio and cannot be deleted.",
+        "version": "Version",
+        "renew_option": "Renew Option",
+        "unsubscribed": "Unsubscribed",
+        "selectionErrorTitle": "Error",
+        "deleteProductWithUsers": "Application {productTitle} has one or more users and cannot be deleted.",
+        "deleteConfirmation": "Are you sure you want to delete {productTitle}?",
+        "installation_type": "Installation type",
+        "selectTooManyErrorMessage": "You must select no more than {maxProductNumber} {maxProductNumber, plural, one{product} other{products}}.",
+        "deleteFailed": "Failed to Delete Application",
+        "selectTooFewErrorMessage": "You must select at least {minProductNumber} {minProductNumber, plural, one{product} other{products}}.",
+        "deleteSucceededContent": "{productTitle} has been removed from your account."
+    },
+    "button": {
+        "add_user_group_role": "Add user, group or role",
+        "edit_constraints": "Edit constraints",
+        "add_to_portfolio": "Add to portfolio",
+        "add_products": "Add application",
+        "add_constraints": "Add constraints",
+        "subscribe": "Accept terms and subscribe",
+        "upload_product": "Create new application",
+        "delete_version": "Delete version",
+        "add_user_group": "Add user or group",
+        "remove_user_group": "Remove user or group",
+        "remove_product": "Remove application",
+        "edit_version": "Edit version",
+        "remove_portfolio": "Remove from portfolio",
+        "create_version": "Create new version",
+        "add_tag": "Add tag",
+        "delete_tag": "Delete tag",
+        "unsubscribe": "Unsubscribe",
+        "remove_constraints": "Remove constraints",
+        "remove_user_group_role": "Remove user, group or role"
+    },
+    "leftNav": {
+        "packages_label": "Packages",
+        "subscriptions_label": "Subscriptions",
+        "images_label": "Images",
+        "applications_label": "Applications",
+        "workSpaces_label": "WorkSpaces",
+        "bundles_label": "Bundles",
+        "usage_label": "Usage",
+        "directories_label": "Directories"
+    },
+    "constraint_type": {
+        "template": "Template",
+        "launch_explanation": " This constraint allows you to specify the IAM role that will be used when end-users launch, update or manage the application.",
+        "template_explanation": "This constraint allows you to constrain the CloudFormation template parameter value(s) your end users will be able to specify when they launch or update the application.",
+        "launch": "Launch"
+    },
+    "product_listing_grid": {
+        "no_subscribed_products_notice": "Your application catalog does not have any subscribed applications. You can upload your own applications or subscribe to applications from the AWS Marketplace.",
+        "no_uploaded_products_notice": "Your application catalog does not have any uploaded applications. You can upload your own applications or subscribe to applications from the AWS Marketplace.",
+        "no_products_notice": "No applications found."
+    },
+    "common": {
+        "cancel": "Cancel",
+        "select": "Select",
+        "all_assignments": "all assignments",
+        "learn_more": "Learn more.",
+        "principal_name": "Name",
+        "type": "Type",
+        "constraints": "Constraints",
+        "required": "*Required",
+        "viewing": "Viewing",
+        "next_step": "Next Step",
+        "review": "Review",
+        "input_does_not_match": "/{inputValue}/ does not match {matchValue}.",
+        "continue": "Continue",
+        "*_required": "* Required",
+        "warning": "Warning",
+        "create": "Create",
+        "app_installation_type": {
+            "optional": "Optional",
+            "required": "Required"
+        },
+        "action": "Action",
+        "plan": "plan",
+        "action_header": "{actionType} {actionLabel}",
+        "required_field_message": "This field is required. Please enter: ",
+        "root_user_account": "Root account (Account {accountId})",
+        "sold_by_amazon_web_services": "Sold by Amazon Web Services",
+        "group": "Group",
+        "tags": "Tags",
+        "confirm_lite": "Confirm and downgrade",
+        "action_confirmation_string": "Enter <strong>{confirmationWord}<\/strong> to confirm {actionName}: ",
+        "versions": "Versions",
+        "viewing_items_of_total_items_format_string": "Viewing {start} - {end} of {totalCount} {type}",
+        "success": "Success",
+        "return_to_marketplace": "Return to marketplace",
+        "principal_directory": "Directory ID",
+        "constraint_added": "New constraint created.",
+        "change_plan": "Change plan",
+        "name": "Name",
+        "wam_standard": "WAM Standard",
+        "browse": "Browse",
+        "here": "here",
+        "next": "Next",
+        "auto_update_options": {
+            "no": "No",
+            "yes": "Yes"
+        },
+        "list_separator": ", ",
+        "role": "Role",
+        "ACTIVE": "Subscribed",
+        "submit": "Submit",
+        "action_type": {
+            "add": "Add",
+            "edit": "Edit",
+            "remove": "Remove"
+        },
+        "roles": "Roles",
+        "save": "Save",
+        "update": "Update",
+        "confirm_only": "Confirm",
+        "error": "Error",
+        "remove_users_confirmation": "Are you sure you want to remove the selected {usersCount, plural, one{user} other{# users}}?",
+        "constraint_edited": "Constraint has been changed",
+        "users_and_groups": "Users and groups",
+        "products": "Applications",
+        "mp_end_user_link": "End user",
+        "search": "Search",
+        "UNSUBSCRIBED": "Unsubscribed",
+        "sold_by": "Sold by",
+        "arn": "ARN",
+        "create_portfolio": "Create portfolio",
+        "action_type_removal": "removal",
+        "product": "Application",
+        "previous": "Previous",
+        "license_type": {
+            "by_user": "By User",
+            "by_workspace": "By Workspace"
+        },
+        "amazon_web_services": "Amazon Web Services",
+        "change": "Change",
+        "portfolios": "Portfolios",
+        "PENDING": "Pending",
+        "create_product": "Create application",
+        "word_for_delete_confirmation": "REMOVE",
+        "filter": "Filter",
+        "confirm": "Confirm and assign",
+        "confirm_standard": "Confirm and upgrade",
+        "viewing_items_range_format_string": "Viewing {start} - {end} {type}",
+        "return_to_product_list": "Return to application catalog",
+        "constraints_delete_confirmation": "Are you sure you want to delete {constraintsCount, plural, one{constraint} other{# constraints}} {constraintsNames}?",
+        "user": "User",
+        "account_principal": "Account Principal",
+        "users_groups_and_roles": "Users, groups and roles"
+    },
+    "iam": {
+        "add_iam_users_link_caption": "Add users in IAM",
+        "no_iam_roles_present": "Roles not present in Identity and Access Management.",
+        "add_iam_roles_link_caption": "Add roles in IAM",
+        "no_iam_users_present": "Users not present in Identity and Access Management.",
+        "add_iam_groups_link_caption": "Add groups in IAM",
+        "no_iam_groups_present": "Groups not present in Identity and Access Management."
+    },
+    "portfolio": {
+        "owner": "Owner",
+        "import_success_content": "Portfolio has been successfully imported.",
+        "add_products_prompt_content": "Select portfolio then click Add Application To Portfolio to add {productCount, plural, one{product} other{products}} {productNames} to that portfolio.",
+        "sharingStatus": "Sharing",
+        "creationTime": "Created",
+        "delete_shared_confirmation": "{portfolioName} is still shared with other accounts. <br/>Are you sure you want to delete it?",
+        "delete_failed": "Delete portfolio failed",
+        "delete_success_title": "Portfolio deleted",
+        "description": "Description",
+        "type": "Type",
+        "get_errors": {
+            "RESOURCE_NOT_FOUND": {
+                "title": "Portfolio not available",
+                "content": "You do not have access to this portfolio."
+            },
+            "BAD_REQUEST": {
+                "title": "Portfolio not available",
+                "content": "You do not have access to this portfolio."
+            }
+        },
+        "removal_errors": {"NON_EMPTY": {
+            "title": "Delete portfolio failed",
+            "content": "Portfolio {portfolioName} cannot be deleted because it still contains products, constraints, or users."
+        }},
+        "delete_portfolio": "Delete portfolio",
+        "delete_confirmation": "Are you sure you want to delete portfolio {portfolioName}?",
+        "delete_success_content": "Portfolio {portfolioName} has been removed from the system.",
+        "add_products_prompt_title": "Select target portfolio to add {productCount, plural, one{product} other{products}}",
+        "import_portfolio": "Import portfolio",
+        "import_success_title": "Success"
+    },
+    "get_product_subscription_error": {
+        "INTERNAL_SERVER_ERROR": {
+            "title": "Error",
+            "content": "We're sorry. Something went wrong while getting subscription status, please try again later."
+        },
+        "general_error": {
+            "title": "Fail to Get Subscription Status for this Application",
+            "content": "Please try again later"
+        }
+    },
+    "sessionstateservice": {
+        "genericErrorMessage": "Something went wrong. Try later.",
+        "genericInfoTitle": "Info",
+        "genericErrorTitle": "Error"
+    },
+    "noPackages": {
+        "heading": "Uploading a packaged application",
+        "noPackageWarning": "There are no packages to upload yet. ",
+        "packageHelpLink": "Read more"
+    },
+    "productUsage": {
+        "add_products": "Add applications",
+        "add_products_text1": "Or click ",
+        "no_items_found1": "You do not have applications imported into your catalog.",
+        "no_items_found2": "New To Amazon WAM? Check out the ",
+        "add_products_text2": " begin adding applications to your catalog.",
+        "import_your_catalog_text": "Learn to package your software for importing to your catalog",
+        "getting_started_guide": "Getting started guide"
+    },
+    "portfolio_grid": {"no_portfolios_notice": "No portfolios found."},
+    "portfolio_type": {
+        "all": "All",
+        "service_catalog": "Cloud Resources",
+        "workspaces": "Workspaces Apps"
+    },
+    "add_products_to_portfolios": {
+        "no_selected_products_notice": "No application has been chosen.",
+        "add_failed": "Your application could not be added to the portfolio. Please add this manually later.",
+        "portfolio_add_success": "Your application has been successfully added to the portfolio. It may take a few seconds to complete.",
+        "description": "Portfolios are groups of applications. You can add an application to a portfolio and grant permissions to allow users to view and launch applications by clicking on the portfolio name.",
+        "products_list": "Selected {nrProducts, plural, one{Product} other{Products}}",
+        "title": "Add application to portfolio",
+        "add_success": "Your application has been added to portfolio. It may take a few seconds to complete. Please refresh this page if you don't see your application listed.",
+        "select_products_link": "Please select an application."
+    },
+    "create_portfolio": {
+        "portfolio_name_detailed_description": "Type a friendly identifier (100-character maximum).",
+        "owner_description": "Indicate who created the portfolio.",
+        "portfolio_id": "Portfolio ID*",
+        "description": "Use Portfolios to organize your applications and distribute them to end users. You can add applications to a portfolio and grant permissions to allow users to view and launch applications.",
+        "portfolio_owner": "Owner*",
+        "portfolio_name": "Portfolio name*",
+        "title": "Create portfolio",
+        "portfolio_description": "Description",
+        "portfolio_id_description": "This is the unique identifier and can not be changed, up to 20 characters.",
+        "portfolio_id_tooltip": "The portfolio ID is the unique identifier and can not be changed.",
+        "portfolio_description_description": "Add information that will appear on the portfolio detail page."
+    },
+    "dashboard": {
+        "forums": "Forums",
+        "create_portfolios_description": "Easily create groups of applications, manage permissions and set policies.",
+        "documentation": "Documentation",
+        "enterprise_catalog_support": "Enterprise Catalog Support",
+        "create_products_description": "Upload your own private applications.",
+        "getting_started_guide": "Getting Started Guide",
+        "enterprise_catalog_documentation": "Enterprise Catalog Documentation",
+        "actions": "Actions",
+        "notifications": "Notifications"
+    },
+    "mp-grid": {
+        "viewing_users": "Viewing {low} - {high} users",
+        "search": "Search",
+        "viewing_products": "Viewing {low} - {high} applications",
+        "viewing_packages": "Viewing {low} - {high} packages",
+        "viewing_constraints": "Viewing {low} - {high} constraints",
+        "viewing_users_and_groups": "Viewing {low} - {high} users and groups",
+        "viewing_versions": "Viewing {low} - {high} versions",
+        "viewing_portfolios": "Viewing {low} - {high} portfolios",
+        "viewing_tags": "Viewing {low} - {high} tags"
+    },
+    "portfolio_sharing_status": {
+        "shared": "Shared",
+        "referenced": "Referenced",
+        "not_shared": "Not shared"
+    },
+    "leftNavHeader": {
+        "application_manager_label": "Application Manager",
+        "workSpaces_label": "WorkSpaces"
+    },
+    "product": {
+        "providedBy": "Provided by",
+        "addToPortfolio": "Add application to portfolio",
+        "addProduct": "Add application from AWS Marketplace",
+        "displayName": "Name",
+        "portfolios": "Portfolios",
+        "assignUsersToProduct": "Assign application(s) to users",
+        "subscription": "Subscription",
+        "type": "Type",
+        "plus_applicable_taxes": "plus applicable taxes",
+        "versions": "Versions",
+        "unsubscribe": "Unsubscribe",
+        "vendor": "Vendor",
+        "uploadProduct": "Create new application",
+        "free": "Free",
+        "actions": "Actions",
+        "deleteProduct": "Delete application",
+        "status": "Status"
+    },
+    "portfolio_details": {
+        "info_constraint_message": "Add constraints to control the way applications can be launched by users.",
+        "owner": "Owned by",
+        "product": "Application",
+        "info_constraint_heading": "This application has no defined constraints.",
+        "update_portfolio_error": "There was an error updating the portfolio",
+        "created": "Created",
+        "info_users_message": "Use permissions to grant users access to the portfolio, and allow them to launch the associated resources.",
+        "description": "Description",
+        "version": "Version",
+        "update_portfolio_success": "Portfolio was updated",
+        "info_users_heading": "No users have been granted access to this portfolio and it is only accessible to the portfolio owner",
+        "constraint_type": "Constraint type",
+        "portfolio_arn": "Portfolio ARN",
+        "select_product_and_constraint_type": "Select application and type",
+        "portfolio_title": "Portfolio: {displayName}",
+        "name": "Name",
+        "info_product_message": "You can add your own applications or select applications from the AWS Marketplace. If you need to create a new application you will need a CloudFormation template to complete the process.",
+        "remove_product_warning": "Are you sure you want to remove {productsToDelete} from this portfolio?",
+        "portfolio_type": "Portfolio type",
+        "info_product_heading": "You do not have any applications in this portfolio",
+        "status": "Status"
+    },
+    "removeUsersModal": {
+        "message": "All Amazon WAM applications will be immediately removed from WorkSpaces belonging to your users in this directory",
+        "message2": "This operation cannot be undone."
+    },
+    "createProduct": {
+        "version_title_tooltip": "The version title for this application, such as 1.1 or v2.3, that is displayed in your application catalog and to users granted access. You can create a new application version through this wizard, or from the application detail page.",
+        "import_product": "Create new application",
+        "version_details": "Version details",
+        "description": "Description",
+        "enter_product_info": "Select application package",
+        "maximum_installs": "Maximum install",
+        "title_intro": "Select the desired application package to upload and publish into your application catalog. ",
+        "product_licensing": {"label": "Application licensing"},
+        "optional_product_information": "Optional application information",
+        "product_constraints": {
+            "label": "Application constraints",
+            "message": "Control the way all versions of the application can be launched by the user."
+        },
+        "constraint_tooltip": "Constraints apply to how the application is allocated to enhance license and cost management.",
+        "max_install_tooltip": "The maximum number of installations allowed for all application versions, which cannot be less than the current number of installations. If this field is blank, the application has unlimited installations.",
+        "package_*": "Package title*",
+        "package_details": {
+            "label": "Package details",
+            "message": "Application packages are displayed after packaging validation."
+        },
+        "package_title_tooltip": "The title of the package defined in the packager tool, such as Microsoft Office or Adobe Photoshop.",
+        "package_build_tooltip": "The package build is set during the packaging process. The same package may have several different builds.",
+        "build_*": "Package build label*",
+        "product_details": "Application details",
+        "license_type_*": "License type*",
+        "version_name_*": "Application version*",
+        "version_information": {
+            "label": "Version information",
+            "message": "Enter the following information."
+        }
+    },
+    "create_product": {
+        "product_type_details": "You will need a working EXE, MSI, MSP, CAB, RAR or ZIP to complete this application creation",
+        "product_version_title_summary": "Version title",
+        "version_details_step_title": "Version Details",
+        "product_type_workspaces_apps": "Workspaces Apps",
+        "product_short_desc_input": "Short description*",
+        "product_provider_input": "Provided by*",
+        "product_logo_label": "Application logo",
+        "product_id_label": "Application ID",
+        "product_type_cloud_resources_details": " - which contain CloudFormation Templates, AMIs and Managed Services",
+        "product_details_form": "Application Details",
+        "product_vendor_intro": "If this application has a different source than the publisher you can set this field for easy discovery.",
+        "product_vendor_details": "Add the company who created the application (50-character maximum). Users can filter applications by this information.",
+        "product_support_desc_input": "Support description",
+        "details_step_intro": "You can create your own applications for private use within your organization. Once created, you can add your applications to your portfolios to make them available to your users.",
+        "product_support_intro": "This information identifies the organization that publishes this application.",
+        "product_short_desc_label": "Short description",
+        "invalid_file_type": {"content": "The selected logo file is not an image."},
+        "categories_loading": {
+            "INTERNAL_SERVER_ERROR": {
+                "title": "Error",
+                "content": "We're sorry. Something went wrong while loading categories, please try again later."
+            },
+            "general_error": {
+                "title": "Fail to load categories",
+                "content": "Please try again later"
+            }
+        },
+        "product_desc_input": "Description*",
+        "general_error": {
+            "title": "Error",
+            "content": "Something went wrong while creating your application."
+        },
+        "product_type_form": "Application Type",
+        "details_step_title": "Application Details",
+        "RESOURCE_LIMIT_EXCEEDED": {
+            "title": "Error",
+            "content": "You have reached the maximum limit of uploaded applications."
+        },
+        "product_tags_intro": "A tag consists of a case-sensitive key-value pair. For example, you could define a tag with key = Name and value = MyApplication. Tags on the application will be added to all AWS resources launched from the application and cannot be modified by your users.",
+        "product_provider_intro": "This field is used to display the organization which publishes this application.",
+        "product_license_key_input": "License key",
+        "product_type_workspaces_apps_details": " - which are apps for your desktops in the cloud for Amazon Workspaces",
+        "product_support_link_label": "Support link",
+        "product_license_intro": "If your application includes a license please include that information here.",
+        "optional_info_step_title": "Optional Application Information",
+        "product_vendor_label": "Vendor",
+        "no_package_selected_label": "Select a package",
+        "product_support_link_details": "Link provided to application users for support details.",
+        "product_support_email_input": "Email contact",
+        "product_support_email_details": "For example: support@mycompany.com.",
+        "INTERNAL_SERVER_ERROR": {
+            "title": "Error",
+            "content": "We're sorry. Something went wrong while creating your application, please try again later."
+        },
+        "category_label": "Category",
+        "category_input": "Category*",
+        "product_license_type_label": "License type",
+        "product_name_details": "Up to 100 characters - Examples: My Test Application, My Packaged LOB App.",
+        "product_license_server_tooltip": "If available, you can put a link to support details for this application. The link can be internal or external and can use http:// or https://.",
+        "product_license_server_input": "License server",
+        "product_license_key_details": "This should should be an exact match for your key to work.",
+        "oversized_file": {"content": "The selected logo file exceeds its size limit."},
+        "title": "Create new application",
+        "no_build_selected_label": "Select a build",
+        "product_name_label": "Application name",
+        "product_description_summary": "Description",
+        "product_short_desc_details": "Short description displayed on application search page.",
+        "confirm_upload_button": "Confirm and upload",
+        "product_license_form": "Licensing",
+        "product_logo_details": "Optional location of a logo displayed as part of the application details.",
+        "no_license_type_selected_label": "Select License Type",
+        "product_tags_label": "Tags",
+        "product_license_key_tooltip": "This is the email address that customers will be able to contact if they run into an issue.",
+        "summary": "Summary",
+        "step4": "Step 4: Review",
+        "product_provider_details": "Add the person or organization that publishes the application (50-character maximum). Users can filter applications by this information.",
+        "product_support_desc_label": "Support description",
+        "details_step_package": "To upload your own application, you must first package the application using the Amazon WAM Admin Studio and Admin Player, and then select the desired application package to upload and publish into your catalog.",
+        "step2": "Step 2: Enter support details",
+        "product_type_cloud_resources": "Cloud Resources",
+        "step3": "Step 3: Select package",
+        "product_support_email_label": "Email contact",
+        "step1": "Step 1: Enter application details",
+        "FORBIDDEN": {
+            "title": "Access denied",
+            "content": "You do not have permissions to create an application. Please contact your administrator for access."
+        },
+        "product_vendor_input": "Vendor",
+        "product_support_link_input": "Support link",
+        "invalid_form_error": {
+            "title": "Your form is invalid",
+            "content": "Please go back and check it."
+        },
+        "file_upload_unsupported": "Your current browser does not support file upload. Please upgrade to a newer version.",
+        "product_provider_label": "Provided by",
+        "product_logo_input": "Application logo",
+        "product_binary_summary": "Application binary",
+        "product_desc_label": "Description",
+        "product_name_input": "Application name*",
+        "product_license_server_details": "For example: https://myserver.com."
+    },
+    "list": {
+        "last_item_separator": "{first}, and {second}",
+        "two_items": "{first} and {second}",
+        "regular_separator": "{first}, {second}"
+    },
+    "packages": {
+        "appSetsGrid": {
+            "owner": "Owner",
+            "lastUpdated": "Last Modified",
+            "application": "Application Name",
+            "authoredRegion": "Authored Region",
+            "title": "Package Title"
+        },
+        "modifyPermissions": "Modify Permissions",
+        "noPackagesAvailable2": "New To Amazon WAM? Check out the ",
+        "gettingStartedGuide": "Getting started guide",
+        "noPackagesAvailable1": "You do not have packages available in your account",
+        "noSharedPackagesAvailable1": "You do not have packages shared with your account",
+        "sharingPackageGuide": "Sharing your Package guide",
+        "learnToPackage": "Learn to package your software for importing into your catalog",
+        "source": "Source: {packageSource}",
+        "ownedByMe": "Owned by me",
+        "title": "Packages",
+        "noSharedPackagesAvailable2": "Learn more about package sharing with the ",
+        "createApplication": "Create Application",
+        "appPackagesGrid": {
+            "owner": "Owner",
+            "appVersion": "Application Version",
+            "creationTime": "Creation Time",
+            "label": "Package Build Label",
+            "packageStatus": "Package Version Status"
+        },
+        "sharedWithMe": "Shared with me",
+        "status": {
+            "testingComplete": "Approved",
+            "published": "Published"
+        }
+    },
+    "add_products_to_portfolios_errors": {
+        "PRINCIPAL_ALREADY_ASSIGNED": {
+            "title": "Error adding application to portfolio",
+            "content": "Principal already assigned."
+        },
+        "RESOURCE_SHARED_ABOVE_LIMIT": {
+            "title": "Error adding application to portfolio",
+            "content": "Resource shared is above the limit"
+        },
+        "RESOURCE_NOT_FOUND": {
+            "title": "Error adding application to portfolio",
+            "content": "Resource not found"
+        },
+        "CANNOT_ADD_PRODUCT": {
+            "title": "Error adding application to portfolio",
+            "content": "Cannot add application"
+        },
+        "INVALID_IDENTIFIER": {
+            "title": "Error adding application to portfolio",
+            "content": "Invalid identifier"
+        },
+        "INTERNAL_ERROR": {
+            "title": "Error adding application to portfolio",
+            "content": "Internal error"
+        },
+        "IDEMPOTENCY_FAILED": {
+            "title": "Error adding application to portfolio",
+            "content": "The application is already added to the portfolio."
+        },
+        "RESOURCE_IN_USE": {
+            "title": "Error adding application to portfolio",
+            "content": "Resource in use"
+        },
+        "FORBIDDEN": {
+            "title": "Access denied",
+            "content": "You do not have permissions to add applications to portfolio. Please contact your administrator for access."
+        }
+    },
+    "share_packages": {
+        "noPermissions": "This package currently has no permissions",
+        "awsAccountNumber": "AWS Account Number",
+        "selectVersionToModify": "Select a version you wish to modify",
+        "modify_failed": "There was an issue modifying the package version permissions",
+        "title": "Modify Package Permissions",
+        "addAccount": "Add Permission"
+    },
+    "wam_subscription": {
+        "standard": "WAM Standard",
+        "standard_infobox_viewsubscription": "View your subscription plan.",
+        "lite_infobox_learnmore": "Learn more.",
+        "standard_infobox_title": "You are now on the WAM Standard subscription plan",
+        "lite_BYOL_infobox_learnmore": "Learn more.",
+        "current_subscription_plan": "Current subscription plan:",
+        "lite_infobox_viewsubscription": "View your subscription plan.",
+        "lite_infobox_title": "You are now on the WAM Lite subscription plan",
+        "lite_BYOL_infobox_viewsubscription": "View your subscription plan.",
+        "lite_infobox_text": "You can manage and deliver applications from the AWS Marketplace free of charge. You only pay for the applications that your users activate. To deliver your own applications or access additional features, upgrade to WAM Standard.",
+        "trial_notice": {
+            "view_subscription": "View your subscription plan.",
+            "title": "The free trial of the WAM Standard plan will end on July 31st, 2015",
+            "explanation": "If you selected a subscription plan on the Get started page or the Subscription plan page, you will be enrolled in the plan of your choice. If you did not select a plan and have only subscribed to applications from the AWS Marketplace for Desktop Apps, you will be enrolled in the WAM Lite plan as of August 1st, 2015. On the WAM Lite plan, all of your existing users will get the latest versions of the applications they are assigned to from the AWS  Marketplace for Desktop Apps with the installation type set as Optional.",
+            "prompt": "To manage the applications you uploaded (line-of-business applications and third-party applications for which you own licenses), upgrade to WAM Standard in the Subscription plan page. The WAM Standard plan will cost $5/user/month."
+        },
+        "standard_infobox_learnmore": "Learn more.",
+        "lite": "WAM Lite",
+        "lite_BYOL_infobox_text": "You will not be able to assign users to the applications you uploaded (line-of-business applications and third-party applications for which you own licenses), nor configure the assignment options such as controlling versions, managing the update settings, or configuring the installation type. To assign the applications you uploaded (line-of-business applications and third-party applications for which you own licenses), upgrade to the WAM Standard plan.",
+        "standard_infobox_text": "You can build your application catalog with line-of-business applications, third-party applications for which you own licenses, or applications from the AWS Marketplace for Desktop Apps.",
+        "lite_BYOL_infobox_title": "You are currently subscribed to the WAM Lite plan which has limited features to manage your line-of-business applications and to configure the assignment options."
+    },
+    "assignToUsers": {
+        "assign_to_users": "Assign applications to users",
+        "no_users_groups_found": "No users or groups found",
+        "directory_*": "Directory",
+        "type": "Type",
+        "principal_id": "ID",
+        "remove": "Remove",
+        "selected_products": "Selected applications:",
+        "directory_id": "Directory ID",
+        "remove_all_users": "Remove all users",
+        "product": "Application:",
+        "select_options": {
+            "text1_standard": "Specify the assignment settings for each application. If these applications have already been assigned to the selected users and groups, the new settings will override any previous settings.",
+            "info_standard": "Options for existing users for this application",
+            "text1_lite": "To configure assignment options for each application by version, installation type, and auto-update settings, upgrade to ",
+            "info_lite": "WAM Lite supports the application assignment of the latest available version, installation type as optional, and auto-update enabled.",
+            "label": "Configure options",
+            "message": "Configure the assignment options for each application."
+        },
+        "select_users": {
+            "message_lite": "WAM Lite supports application assignment by directory. Select the directory to assign the applications to. The applications will be assigned to all users/groups in the directory you selected. When you are finished selecting directory, choose <strong>Next<\/strong>.<p> To be able to assign applications to specific users or groups, upgrade to WAM Standard.",
+            "unable_to_assign_lob_apps_in_lite_message": "To deliver and manage your line-of-business applications and third party applications for which you own licenses, upgrade to the ",
+            "label": "Select users",
+            "unable_to_assign_lob_apps_in_lite_heading": "You are currently subscribed to the WAM Lite plan which has limited features.",
+            "message": "Select the users and groups to provide access to the selected applications. The applications you assign to the end users will show up in the Amazon WAM client on the end users' WorkSpaces.<br>When you are finished selecting your users and groups, click <strong>Next<\/strong>."
+        },
+        "groups": "Groups",
+        "type_*": "Type*",
+        "step2": "Step 2: Configure options",
+        "step3": "Step 3: Review",
+        "successMessage": "Application assignment successful.",
+        "view_and_edit_assignments": {
+            "subscription_plan_lite_message": "To start configuring assignment options, upgrade to the ",
+            "subscription_plan_lite_header": "You are currently subscribed to the WAM Lite plan which has limited features.",
+            "label": "Configure assignment options",
+            "message": "Configure the assignment for each user or group."
+        },
+        "review_users_assigned_to_products": {
+            "label": "Review",
+            "message": "Review the application assignments. You can make changes to assignments in the users and groups section of the application detail page."
+        },
+        "users": "Users",
+        "search_for_users_or_groups": "Search for users or groups",
+        "step1": "Step 1: Select users",
+        "selected_users_and_groups": "Selected users and groups",
+        "selected_assignment_options": "Configured assignment options",
+        "fields_containing": "Search",
+        "search_results": "Search results",
+        "search_for_users_or_groups_lite": "Select a directory",
+        "name": "Name",
+        "add_selected": "Add Selected",
+        "viewing_type_users_groups": "Users/Groups",
+        "all_users": "All users",
+        "no_users_groups_selected": "No users or groups selected",
+        "wam_standard": "WAM Standard",
+        "users/groups_selected": "Selected users or groups:",
+        "products_selected": "Applications selected ",
+        "add_user_or_group": "Add user or group",
+        "failureMessage": "There were {numFailures} {numFailures, plural, one{failure} other{failures}} while assigning these users and applications.",
+        "search_text": "Select the directory to search. Enter all or part of the user or group name in the Search field. Leave this field blank to search all users or groups."
+    },
+    "tags": {
+        "unsupported_pattern": "Alphanumeric(A-Z, a-z, 0-9) and special characters:_ .:/=+-@ only",
+        "create_success_message": "Tags successfully created",
+        "delete_error_message_limit_exceeded": "Tag limit exceeded",
+        "delete_error_message": "Something went wrong, please try again",
+        "create_error_message": "Something went wrong, please try again",
+        "delete_success_message": "Tags successfully deleted",
+        "key_header": "Key",
+        "key_description": "Key name. Up to 128 characters - For example, organization or cost center",
+        "value_header": "Value",
+        "input_max_limit_reached": "Tag limit exceeded",
+        "delete_confirmation_message": "Do you want to delete the selected tags?",
+        "value_description": "Key value. Up to 256 characters"
+    },
+    "home": {
+        "service_catalog": "Service Catalog",
+        "manage_user_access_description": "Decide who can access applications and set policies on where and how users can launch them.",
+        "get_started": "Get started",
+        "easily_create": "Easily create groups of applications, manage permissions, and set constraints.",
+        "getting_started": "Getting started",
+        "add_products": "Add applications to your catalog from AWS Marketplace",
+        "service_catalog_documentation": "Service Catalog Documentation",
+        "manage_portfolios_description": "Use portfolios to organize your applications and distribute them to end users.",
+        "forums": "Forums",
+        "manage_user_access": "Manage user access",
+        "take_control": "Take control of your company\u2019s cloud resources.",
+        "service_catalog_support": "Service Catalog support",
+        "manage_portfolios": "Create and manage portfolios",
+        "add_products_description": "You can upload your line of business products or products you already own licenses to.",
+        "all_documentation": "All Service Catalog documentation"
+    },
+    "search_products": {
+        "successfully_subscribed_msg": "You have subscribed to {productName}. It may take a few minutes to appear in your application catalog.",
+        "search_placeholder": "Search applications...",
+        "upload_product": "Upload your own application",
+        "rating": "Ratings",
+        "add_products_from_awsmp": "Add applications to catalog from AWS Marketplace",
+        "getting_started_title": "Get started building your catalog",
+        "products": "Applications",
+        "vendor": "Vendor",
+        "name": "Name",
+        "upload_prompt": "Have your own line of business applications? Upload your own application.",
+        "aws_marketplace": "AWS Marketplace",
+        "categories": "Categories",
+        "all_categories": "All Categories",
+        "pricing": "{rate}/{term}/user"
+    },
+    "help_docs": {
+        "iam_link": "http://docs.aws.amazon.com/wam/latest/adminguide/iam.html#mkt_role",
+        "packages_link": "http://docs.aws.amazon.com/wam/latest/adminguide/packaging.html",
+        "wam_contact_us_link": "https://aws.amazon.com/contact-us",
+        "wam_faq_link": "http://aws.amazon.com/workspaces/faqs/#wam",
+        "track_usage_link": "https://docs.aws.amazon.com/console/wam/track_usage",
+        "package_sharing_link": "http://docs.aws.amazon.com/wam/latest/adminguide/package_sharing.html",
+        "wam_forum_link": "https://forums.aws.amazon.com/forum.jspa?forumID=164",
+        "wam_pricing_link": "http://aws.amazon.com/workspaces/applicationmanager#pricing",
+        "manage_catalog_link": "http://docs.aws.amazon.com/console/wam/manage_catalog",
+        "user_access_link": "https://docs.aws.amazon.com/console/wam/user_access",
+        "aws_agreement_link": "http://aws.amazon.com/agreement/",
+        "getting_started_link": "http://docs.aws.amazon.com/console/wam/getting_started",
+        "what_is_wam_link": "http://docs.aws.amazon.com/wam/latest/adminguide/what_is.html",
+        "applications_link": "http://docs.aws.amazon.com/wam/latest/adminguide/applications.html"
+    },
+    "punctuation": {
+        "left_curly_parenthesis": "(",
+        "right_curly_parenthesis": ")"
+    },
+    "product_details": {
+        "product_not_active_title": "This product is not available",
+        "monthly_subscription_fee": "Monthly subscription fee",
+        "max_install": "Maximum installs: {maxInstall}",
+        "subscription_fee_description": "You will be charged {price} once a month for each user assigned to the application.",
+        "eula_text": "By subscribing to this application you agree to terms and conditions outlined in the application.",
+        "update_product_success": "Application was updated",
+        "description": "Description",
+        "product_not_active_message_for_nonsubscribers": "This product is no longer available for new subscriptions. Please check AWS Marketplace for Desktop Apps to see if an alternative product is available, or visit the software manufacturer\u2019s website.",
+        "add_user_group": "Add user or group",
+        "type": "Type",
+        "users_and_groups": "Users and groups",
+        "constraints": "Constraints",
+        "info_users_heading": "No users have been granted access to this application.",
+        "eula_title": "End user license agreement",
+        "support_details": "Support details",
+        "latest_version": "Latest version",
+        "unsubscribe_error_user_assigned": "There are currently users or groups assigned to this application in N. Virginia, Ireland  and/or Oregon. Please remove those assignments before unsubscribing to the application",
+        "create_version_submitted_message": "A new application version has been created.",
+        "vendor": "Vendor",
+        "user_edited_title": "The update was successful.",
+        "scope": "Scope",
+        "edit_assignment": "Edit assignment option",
+        "remove_from_portfolio_warning": "Are you sure you want to remove this application from {portfolioToRemove}?",
+        "product_not_active_message_for_subscribers_default": "This product is no longer available for new subscriptions. If you unsubscribe from this product, you will not be able to subscribe to it again.",
+        "get_product_detail_error": {
+            "INTERNAL_SERVER_ERROR": {
+                "title": "Error",
+                "content": "We're sorry. Something went wrong while getting application details, please try again later."
+            },
+            "RESOURCE_NOT_FOUND": {
+                "title": "Error",
+                "content": "Application not found"
+            },
+            "BAD_REQUEST": {
+                "title": "Error",
+                "content": "Application not found."
+            },
+            "general_error": {
+                "title": "Failed to get application details",
+                "content": "Please try again later"
+            },
+            "FORBIDDEN": {
+                "title": "Access denied",
+                "content": "You do not have permissions view the details. Please contact your administrator for access."
+            }
+        },
+        "create_version_submitted_heading": "Success",
+        "info_constraint_message": "You can add constraints to control and restrict the way applications can be launched by your users.",
+        "owner": "Owner",
+        "aws_infrastructure": "AWS Infrastructure",
+        "image": "Application logo",
+        "user_edited_content": "Your user and group assignment options have been updated.",
+        "info_constraint_heading": "There are no constraints defined for this application",
+        "visible": "Visible",
+        "created": "Created",
+        "info_portfolio_heading": "Your application is not added to any portfolio",
+        "update_product_error": "There was an error updating the application",
+        "remove_user_group": "Remove user or group",
+        "info_portfolio_message": "You can add this application to a portoflio.",
+        "update_wam_product_success_content": "Your changes have been submitted and are being processed. It may take a few seconds to appear. Please refresh your browser to see the changes.",
+        "product_type": "Application type",
+        "created_on": "Created",
+        "name": "Name",
+        "aws_infrastructure_detail": "AWS Support is a one-on-one, fast-response support channel that is staffed 24x7x365 with experienced and technical support engineers.The service helps customers of all sizes and technical abilities to successfully utilize the applications and features provided by Amazon Web Services.",
+        "provided_by": "Provided by",
+        "info_portfolio_learn_more": "Learn more about add to portoflio"
+    },
+    "errors": {
+        "INTERNAL_SERVER_ERROR": {
+            "title": "Error",
+            "content": "We're sorry. Something went wrong, please try again later."
+        },
+        "CONFLICT": {
+            "title": "Conflicting State",
+            "content": "The current state of your system does not allow your request."
+        },
+        "RESOURCE_NOT_FOUND": {
+            "title": "Error",
+            "content": "Resource not found"
+        },
+        "default_max_length_message": "Maximum length is {expression}",
+        "support_link_validation": "Must start with http:// or https://",
+        "BAD_REQUEST": {
+            "title": "Bad request",
+            "content": "Your provided information is ill-formed or illegal."
+        },
+        "default_min_length_message": "Minimum length is {expression}",
+        "general_error": {
+            "title": "We're sorry. Something went wrong.",
+            "content": "Please try again later"
+        },
+        "IDEMPOTENCY_FAILED": {
+            "title": "Idempotency failed",
+            "content": "Idempotency failed"
+        },
+        "alphanumeric_only": "Alphanumeric and underscore only",
+        "email_validation": "Must be an email address",
+        "RESOURCE_LIMIT_EXCEEDED": {
+            "title": "Limit exceeded",
+            "content": "You have reached the maximum number allowed"
+        },
+        "FORBIDDEN": {
+            "title": "Access denied",
+            "content": "You do not have permissions for that action. Please contact your administrator for access."
+        },
+        "default_regex_message": "Invalid value",
+        "INVALID_IDENTIFIER": {
+            "title": "Invalid Identifier",
+            "content": "Invalid Identifier"
+        },
+        "RESOURCE_IN_USE": {
+            "title": "Resource in use",
+            "content": "Resource in use"
+        },
+        "default_required_message": "Required"
+    },
+    "breadcrumbs": {
+        "portfolios_add_product": "Add application to portfolio",
+        "portfolios_create": "Create portfolio",
+        "portfolios": "Portfolios",
+        "notifications": "Notifications",
+        "products_add": "Add applications",
+        "home": "Home",
+        "product_create": "Create new application",
+        "products": "Applications"
+    },
+    "product_category": {
+        "productivity_collaboration": "Productivity and Collaboration",
+        "app_web_development": "Application and Web Development",
+        "computer_aided_design_manufacturing": "CAD and CAM",
+        "graphing": "GIS and Mapping",
+        "media_encoding": "Media and Encoding",
+        "security_storage_archiving": "Security/Storage/Archiving",
+        "project_management": "Project Management",
+        "design_illustration": "Illustration and Design",
+        "utilities": "Utilities",
+        "business_intelligence": "Business Intelligence",
+        "billing": "AP and Billing"
+    }
+}T9¸q      \5§E\5§E?ìÛ       a    O^firstPartyDomain=amazon.com,:https://ap-southeast-2.console.aws.amazon.com/wam/messages/en.json strongly-framed 1 security-info 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 request-method GET response-head HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 67103
+Accept-Ranges: bytes
+ETag: W/"67103-1539900314000"
+Last-Modified: Thu, 18 Oct 2018 22:05:14 GMT
+Strict-Transport-Security: max-age=47304000; includeSubDomains
+Date: Wed, 09 Jan 2019 07:48:21 GMT
+Server: Server
+Cache-Control: private
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+X-Frame-Options: SAMEORIGIN
+X-UA-Compatible: IE=edge
+X-Content-Type-Options: nosniff
+x-permitted-cross-domain-policies: none
+x-content-security-policy: script-src 'self' 'unsafe-eval' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://media.amazonwebservices.com https://signin.aws.amazon.com https://d36cz9buwru1tt.cloudfront.net https://resources.console.aws.amazon.com https://phd.aws.amazon.com https://d3v6to565hb34h.cloudfront.net;style-src 'self' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net 'unsafe-inline';img-src 'self' data: https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://aws.amazon.com https://images-na.ssl-images-amazon.com https://d34xub3ut0ooib.cloudfront.net https://d3v6to565hb34h.cloudfront.net;connect-src 'self' https://console.aws.amazon.com https://resources.console.aws.amazon.com https://phd.aws.amazon.com;font-src https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net;
+x-webkit-csp: script-src 'self' 'unsafe-eval' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://media.amazonwebservices.com https://signin.aws.amazon.com https://d36cz9buwru1tt.cloudfront.net https://resources.console.aws.amazon.com https://phd.aws.amazon.com https://d3v6to565hb34h.cloudfront.net;style-src 'self' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net 'unsafe-inline';img-src 'self' data: https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://aws.amazon.com https://images-na.ssl-images-amazon.com https://d34xub3ut0ooib.cloudfront.net https://d3v6to565hb34h.cloudfront.net;connect-src 'self' https://console.aws.amazon.com https://resources.console.aws.amazon.com https://phd.aws.amazon.com;font-src https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net;
+content-security-policy: script-src 'self' 'unsafe-eval' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://media.amazonwebservices.com https://signin.aws.amazon.com https://d36cz9buwru1tt.cloudfront.net https://resources.console.aws.amazon.com https://phd.aws.amazon.com https://d3v6to565hb34h.cloudfront.net;style-src 'self' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net 'unsafe-inline';img-src 'self' data: https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://aws.amazon.com https://images-na.ssl-images-amazon.com https://d34xub3ut0ooib.cloudfront.net https://d3v6to565hb34h.cloudfront.net;connect-src 'self' https://console.aws.amazon.com https://resources.console.aws.amazon.com https://phd.aws.amazon.com;font-src https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net;
+ original-response-headers Server: Server
+Date: Wed, 09 Jan 2019 07:46:01 GMT
+Content-Type: application/json
+Content-Length: 67103
+Connection: keep-alive
+Cache-Control: private
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+X-Frame-Options: SAMEORIGIN
+X-UA-Compatible: IE=edge
+X-Content-Type-Options: nosniff
+x-permitted-cross-domain-policies: none
+x-content-security-policy: script-src 'self' 'unsafe-eval' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://media.amazonwebservices.com https://signin.aws.amazon.com https://d36cz9buwru1tt.cloudfront.net https://resources.console.aws.amazon.com https://phd.aws.amazon.com https://d3v6to565hb34h.cloudfront.net;style-src 'self' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net 'unsafe-inline';img-src 'self' data: https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://aws.amazon.com https://images-na.ssl-images-amazon.com https://d34xub3ut0ooib.cloudfront.net https://d3v6to565hb34h.cloudfront.net;connect-src 'self' https://console.aws.amazon.com https://resources.console.aws.amazon.com https://phd.aws.amazon.com;font-src https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net;
+x-webkit-csp: script-src 'self' 'unsafe-eval' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://media.amazonwebservices.com https://signin.aws.amazon.com https://d36cz9buwru1tt.cloudfront.net https://resources.console.aws.amazon.com https://phd.aws.amazon.com https://d3v6to565hb34h.cloudfront.net;style-src 'self' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net 'unsafe-inline';img-src 'self' data: https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://aws.amazon.com https://images-na.ssl-images-amazon.com https://d34xub3ut0ooib.cloudfront.net https://d3v6to565hb34h.cloudfront.net;connect-src 'self' https://console.aws.amazon.com https://resources.console.aws.amazon.com https://phd.aws.amazon.com;font-src https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net;
+content-security-policy: script-src 'self' 'unsafe-eval' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://media.amazonwebservices.com https://signin.aws.amazon.com https://d36cz9buwru1tt.cloudfront.net https://resources.console.aws.amazon.com https://phd.aws.amazon.com https://d3v6to565hb34h.cloudfront.net;style-src 'self' https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net 'unsafe-inline';img-src 'self' data: https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://console.aws.amazon.com https://aws.amazon.com https://images-na.ssl-images-amazon.com https://d34xub3ut0ooib.cloudfront.net https://d3v6to565hb34h.cloudfront.net;connect-src 'self' https://console.aws.amazon.com https://resources.console.aws.amazon.com https://phd.aws.amazon.com;font-src https://*.cloudfront.net https://s3.amazonaws.com https://*.amazon.com https://s3-us-west-2.amazonaws.com https://s3-eu-west-1.amazonaws.com https://s3-ap-southeast-2.amazonaws.com https://s3-ap-southeast-1.amazonaws.com https://s3-ap-northeast-1.amazonaws.com https://d3v6to565hb34h.cloudfront.net;
+Accept-Ranges: bytes
+ETag: W/"67103-1539900314000"
+Last-Modified: Thu, 18 Oct 2018 22:05:14 GMT
+Strict-Transport-Security: max-age=47304000; includeSubDomains
+ net-response-time-onstart 128 net-response-time-onstop 220  

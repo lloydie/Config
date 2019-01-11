@@ -1,0 +1,627 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var redirect_1 = require("./redirect");
+var helpers_1 = require("./helpers");
+exports.FAC_META_ID = 'meta-features-json';
+exports.FAC_KEY = 'roc-redirect';
+exports.FAC_ATTR = 'data-featuresjson';
+var MAX_COOKIE_AGE = 1000 * 60 * 60 * 24 * 365;
+exports.detectService = function (loc) {
+    return helpers_1.find(redirect_1.SERVICES, function (service) { return loc.split('#')[0].indexOf("/" + service + "/home") !== -1; });
+};
+exports.enableFeature = function (service) {
+    service === 'codepipeline' ? exports.enableFeatureCookie() : exports.enableFeatureFac();
+};
+exports.disableFeature = function (service) {
+    service === 'codepipeline' && exports.disableFeatureCookie();
+};
+exports.enableFeatureFac = function () {
+    var meta = document.getElementById(exports.FAC_META_ID);
+    if (!meta) {
+        return;
+    }
+    var data = meta.getAttribute(exports.FAC_ATTR);
+    if (!data) {
+        return;
+    }
+    try {
+        var features = JSON.parse(data).filter(function (f) { return f.externalId !== exports.FAC_KEY; });
+        var withFacEnabled = JSON.stringify(features.concat([{ externalId: exports.FAC_KEY, enabled: true }]));
+        meta.setAttribute(exports.FAC_ATTR, withFacEnabled);
+    }
+    catch (_a) { }
+};
+exports.enableFeatureCookie = function () {
+    var domain = helpers_1.contains(window.location.toString(), '.aws.amazon.com') ? 'domain=.aws.amazon.com;' : '';
+    document.cookie = "codepipeline-feature-flag:roc-redirect=true;max-age=" + MAX_COOKIE_AGE + ";" + domain;
+};
+exports.disableFeatureCookie = function () {
+    document.cookie = 'codepipeline-feature-flag:roc-redirect=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+
+},{"./helpers":2,"./redirect":5}],2:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var USER_INFO_KEY = 'aws-userInfo';
+exports.contains = function (arr, el) { return arr.indexOf(el) > -1; };
+exports.startsWith = function (arr, el) { return arr.indexOf(el) === 0; };
+exports.find = function (arr, p) {
+    for (var _i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
+        var el = arr_1[_i];
+        if (p(el)) {
+            return el;
+        }
+    }
+    return;
+};
+exports.findCookie = function (name) {
+    var cookies = document.cookie.split(';').map(function (c) { return c.trim(); });
+    var cookie = exports.find(cookies, function (c) { return exports.startsWith(c, name + "="); });
+    if (!cookie) {
+        return;
+    }
+    return cookie.replace(name + "=", '');
+};
+exports.getCurrentUser = function () { return JSON.parse(decodeURIComponent(exports.findCookie(USER_INFO_KEY))).arn; };
+exports.encode = function (s) { return encodeURIComponent(s); };
+exports.decode = function (s) { return decodeURIComponent(s); };
+
+},{}],3:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var redirect_1 = __importDefault(require("./redirect"));
+var context_1 = require("./context");
+var helpers_1 = require("./helpers");
+var logger_1 = require("./logger");
+var IS_FEATURE_ENABLED = true;
+var IS_FEATURE_ENABLED_BLACKLIST = ['codestar'];
+var ACCOUNT_WHITELIST = [];
+var ACCOUNT_BLACKLIST = [
+    '694959481311',
+    '614522453969',
+    '819296969787',
+    '728109381732',
+    '020920097333',
+    '043508279189',
+    '092884317790',
+    '347590186515',
+    '034218411363',
+    '314957936384',
+    '461827656179',
+];
+var service;
+var run = function () {
+    service = context_1.detectService(window.location.toString());
+    if (!service) {
+        logger_1.logRedirect('unknown', false);
+        logger_1.logError('unknown', false);
+        return;
+    }
+    var user = helpers_1.getCurrentUser()
+        .replace('arn:aws:iam::', '')
+        .replace('arn:aws:sts::', '');
+    var isUserWhitelisted = !!helpers_1.find(ACCOUNT_WHITELIST, function (accountId) { return helpers_1.startsWith(user, accountId); });
+    var isUserBlacklisted = !!helpers_1.find(ACCOUNT_BLACKLIST, function (accountId) { return helpers_1.startsWith(user, accountId); });
+    var isFeatureEnabledForCurrentService = IS_FEATURE_ENABLED && !helpers_1.contains(IS_FEATURE_ENABLED_BLACKLIST, service);
+    if ((isFeatureEnabledForCurrentService || isUserWhitelisted) && !isUserBlacklisted) {
+        logger_1.logFeatureEnabled(service, true);
+        context_1.enableFeature(service);
+        redirect_1.default(service);
+    }
+    else {
+        logger_1.logFeatureEnabled(service, false);
+        context_1.disableFeature(service);
+    }
+};
+try {
+    run();
+}
+catch (_a) {
+    logger_1.logError(service || 'unknown', true);
+}
+
+},{"./context":1,"./helpers":2,"./logger":4,"./redirect":5}],4:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var log = function (_a) {
+    var key = _a.key, pageId = _a.pageId, value = _a.value;
+    try {
+        window.AWSC.Clog.log(key, value, undefined, pageId);
+    }
+    catch (e) {
+        console.error(e);
+    }
+};
+exports.logFeatureEnabled = function (service, isEnabled) {
+    return log({
+        key: 'ROC_REDIR_FEATURE_ENABLED',
+        pageId: service,
+        value: isEnabled ? 1 : 0,
+    });
+};
+exports.logCookieValue = function (service, cookieValue) {
+    return log({
+        key: "ROC_REDIR_COOKIE_VAL_" + cookieValue,
+        pageId: service,
+        value: 1,
+    });
+};
+exports.logRedirect = function (service, isRedirect) {
+    return log({
+        key: 'ROC_REDIR_REDIRECT',
+        pageId: service,
+        value: isRedirect ? 1 : 0,
+    });
+};
+exports.logError = function (service, isError) {
+    return log({
+        key: 'ROC_REDIR_ERR',
+        pageId: service,
+        value: isError ? 1 : 0,
+    });
+};
+
+},{}],5:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var helpers_1 = require("./helpers");
+var logger_1 = require("./logger");
+exports.SERVICES = ['codecommit', 'codepipeline', 'codedeploy', 'codebuild', 'codestar'];
+var ROC_COOKIE_ENUM;
+(function (ROC_COOKIE_ENUM) {
+    ROC_COOKIE_ENUM[ROC_COOKIE_ENUM["DEFAULT_VALUE"] = 0] = "DEFAULT_VALUE";
+    ROC_COOKIE_ENUM[ROC_COOKIE_ENUM["NEW_CONSOLE_NO_COOKIE"] = 1] = "NEW_CONSOLE_NO_COOKIE";
+    ROC_COOKIE_ENUM[ROC_COOKIE_ENUM["OLD_CONSOLE_NO_COOKIE"] = 2] = "OLD_CONSOLE_NO_COOKIE";
+    ROC_COOKIE_ENUM[ROC_COOKIE_ENUM["FROM_NEW_OPT_OUT"] = 3] = "FROM_NEW_OPT_OUT";
+    ROC_COOKIE_ENUM[ROC_COOKIE_ENUM["FROM_NEW_OPT_IN"] = 4] = "FROM_NEW_OPT_IN";
+    ROC_COOKIE_ENUM[ROC_COOKIE_ENUM["FROM_OLD_OPT_IN"] = 5] = "FROM_OLD_OPT_IN";
+})(ROC_COOKIE_ENUM = exports.ROC_COOKIE_ENUM || (exports.ROC_COOKIE_ENUM = {}));
+exports.SERVICE_KEY_BY_SERVICE = {
+    codecommit: 'cc_o',
+    codedeploy: 'cd_o',
+    codestar: 'cs_o',
+    codebuild: 'cb_o',
+    codepipeline: 'cp_o',
+};
+var getServiceKey = function (service) { return exports.SERVICE_KEY_BY_SERVICE[service]; };
+var REDIRECT_IF = [
+    ROC_COOKIE_ENUM.DEFAULT_VALUE,
+    ROC_COOKIE_ENUM.NEW_CONSOLE_NO_COOKIE,
+    ROC_COOKIE_ENUM.OLD_CONSOLE_NO_COOKIE,
+    ROC_COOKIE_ENUM.FROM_NEW_OPT_IN,
+    ROC_COOKIE_ENUM.FROM_OLD_OPT_IN,
+];
+exports.ROC_COOKIE_NAME = 'roc-optin';
+var ROC_DESTINATION_PATH = 'codesuite/home';
+var RETURN_URL_MAX_LENGTH = 1000;
+var getCookieFlagByService = function (service) {
+    var rawRocCookie = helpers_1.findCookie(exports.ROC_COOKIE_NAME);
+    if (!rawRocCookie) {
+        return;
+    }
+    var cookie = JSON.parse(decodeURIComponent(rawRocCookie));
+    return cookie[getServiceKey(service)];
+};
+var encodeOrOmitReturnUrl = function (returnUrl) {
+    if (returnUrl.length > RETURN_URL_MAX_LENGTH) {
+        return '';
+    }
+    var encoded = helpers_1.encode(returnUrl);
+    if (encoded.length > RETURN_URL_MAX_LENGTH) {
+        return '';
+    }
+    return encoded;
+};
+var createRedirectUrl = function (service) {
+    if (!window.location || !window.location.href) {
+        return;
+    }
+    var returnUrl = encodeOrOmitReturnUrl(window.location.toString());
+    return "" + window.location.href.split(service)[0] + ROC_DESTINATION_PATH + "?service=" + service + "&returnUrl=" + returnUrl;
+};
+var isOauthRoute = function () {
+    return ['code=', 'githubCode='].some(function (oauthParam) { return helpers_1.contains(window.location.toString(), oauthParam); });
+};
+var redirectIfNecessary = function (service) {
+    var flag = getCookieFlagByService(service);
+    if (flag) {
+        logger_1.logCookieValue(service, flag);
+    }
+    if (flag === undefined || !helpers_1.contains(REDIRECT_IF, flag) || isOauthRoute()) {
+        logger_1.logError(service, false);
+        logger_1.logRedirect(service, false);
+        return;
+    }
+    var url = createRedirectUrl(service);
+    if (!url || !window.location.replace) {
+        logger_1.logError(service, false);
+        logger_1.logRedirect(service, false);
+        return;
+    }
+    logger_1.logError(service, false);
+    logger_1.logRedirect(service, true);
+    window.location.replace(url);
+};
+exports.default = redirectIfNecessary;
+
+},{"./helpers":2,"./logger":4}]},{},[3]);
+         20190105210558©           H                                      ô%      ( f u n c t i o n ( ) { f u n c t i o n   r ( e , n , t ) { f u n c t i o n   o ( i , f ) { i f ( ! n [ i ] ) { i f ( ! e [ i ] ) { v a r   c = " f u n c t i o n " = = t y p e o f   r e q u i r e & & r e q u i r e ; i f ( ! f & & c ) r e t u r n   c ( i , ! 0 ) ; i f ( u ) r e t u r n   u ( i , ! 0 ) ; v a r   a = n e w   E r r o r ( " C a n n o t   f i n d   m o d u l e   ' " + i + " ' " ) ; t h r o w   a . c o d e = " M O D U L E _ N O T _ F O U N D " , a } v a r   p = n [ i ] = { e x p o r t s : { } } ; e [ i ] [ 0 ] . c a l l ( p . e x p o r t s , f u n c t i o n ( r ) { v a r   n = e [ i ] [ 1 ] [ r ] ; r e t u r n   o ( n | | r ) } , p , p . e x p o r t s , r , e , n , t ) } r e t u r n   n [ i ] . e x p o r t s } f o r ( v a r   u = " f u n c t i o n " = = t y p e o f   r e q u i r e & & r e q u i r e , i = 0 ; i < t . l e n g t h ; i + + ) o ( t [ i ] ) ; r e t u r n   o } r e t u r n   r } ) ( ) ( { 1 : [ f u n c t i o n ( r e q u i r e , m o d u l e , e x p o r t s ) { 
+ " u s e   s t r i c t " ; 
+ O b j e c t . d e f i n e P r o p e r t y ( e x p o r t s ,   " _ _ e s M o d u l e " ,   {   v a l u e :   t r u e   } ) ; 
+ v a r   r e d i r e c t _ 1   =   r e q u i r e ( " . / r e d i r e c t " ) ; 
+ v a r   h e l p e r s _ 1   =   r e q u i r e ( " . / h e l p e r s " ) ; 
+ e x p o r t s . F A C _ M E T A _ I D   =   ' m e t a - f e a t u r e s - j s o n ' ; 
+ e x p o r t s . F A C _ K E Y   =   ' r o c - r e d i r e c t ' ; 
+ e x p o r t s . F A C _ A T T R   =   ' d a t a - f e a t u r e s j s o n ' ; 
+ v a r   M A X _ C O O K I E _ A G E   =   1 0 0 0   *   6 0   *   6 0   *   2 4   *   3 6 5 ; 
+ e x p o r t s . d e t e c t S e r v i c e   =   f u n c t i o n   ( l o c )   { 
+         r e t u r n   h e l p e r s _ 1 . f i n d ( r e d i r e c t _ 1 . S E R V I C E S ,   f u n c t i o n   ( s e r v i c e )   {   r e t u r n   l o c . s p l i t ( ' # ' ) [ 0 ] . i n d e x O f ( " / "   +   s e r v i c e   +   " / h o m e " )   ! = =   - 1 ;   } ) ; 
+ } ; 
+ e x p o r t s . e n a b l e F e a t u r e   =   f u n c t i o n   ( s e r v i c e )   { 
+         s e r v i c e   = = =   ' c o d e p i p e l i n e '   ?   e x p o r t s . e n a b l e F e a t u r e C o o k i e ( )   :   e x p o r t s . e n a b l e F e a t u r e F a c ( ) ; 
+ } ; 
+ e x p o r t s . d i s a b l e F e a t u r e   =   f u n c t i o n   ( s e r v i c e )   { 
+         s e r v i c e   = = =   ' c o d e p i p e l i n e '   & &   e x p o r t s . d i s a b l e F e a t u r e C o o k i e ( ) ; 
+ } ; 
+ e x p o r t s . e n a b l e F e a t u r e F a c   =   f u n c t i o n   ( )   { 
+         v a r   m e t a   =   d o c u m e n t . g e t E l e m e n t B y I d ( e x p o r t s . F A C _ M E T A _ I D ) ; 
+         i f   ( ! m e t a )   { 
+                 r e t u r n ; 
+         } 
+         v a r   d a t a   =   m e t a . g e t A t t r i b u t e ( e x p o r t s . F A C _ A T T R ) ; 
+         i f   ( ! d a t a )   { 
+                 r e t u r n ; 
+         } 
+         t r y   { 
+                 v a r   f e a t u r e s   =   J S O N . p a r s e ( d a t a ) . f i l t e r ( f u n c t i o n   ( f )   {   r e t u r n   f . e x t e r n a l I d   ! = =   e x p o r t s . F A C _ K E Y ;   } ) ; 
+                 v a r   w i t h F a c E n a b l e d   =   J S O N . s t r i n g i f y ( f e a t u r e s . c o n c a t ( [ {   e x t e r n a l I d :   e x p o r t s . F A C _ K E Y ,   e n a b l e d :   t r u e   } ] ) ) ; 
+                 m e t a . s e t A t t r i b u t e ( e x p o r t s . F A C _ A T T R ,   w i t h F a c E n a b l e d ) ; 
+         } 
+         c a t c h   ( _ a )   {   } 
+ } ; 
+ e x p o r t s . e n a b l e F e a t u r e C o o k i e   =   f u n c t i o n   ( )   { 
+         v a r   d o m a i n   =   h e l p e r s _ 1 . c o n t a i n s ( w i n d o w . l o c a t i o n . t o S t r i n g ( ) ,   ' . a w s . a m a z o n . c o m ' )   ?   ' d o m a i n = . a w s . a m a z o n . c o m ; '   :   ' ' ; 
+         d o c u m e n t . c o o k i e   =   " c o d e p i p e l i n e - f e a t u r e - f l a g : r o c - r e d i r e c t = t r u e ; m a x - a g e = "   +   M A X _ C O O K I E _ A G E   +   " ; "   +   d o m a i n ; 
+ } ; 
+ e x p o r t s . d i s a b l e F e a t u r e C o o k i e   =   f u n c t i o n   ( )   { 
+         d o c u m e n t . c o o k i e   =   ' c o d e p i p e l i n e - f e a t u r e - f l a g : r o c - r e d i r e c t = ; e x p i r e s = T h u ,   0 1   J a n   1 9 7 0   0 0 : 0 0 : 0 1   G M T ; ' ; 
+ } ; 
+ 
+ } , { " . / h e l p e r s " : 2 , " . / r e d i r e c t " : 5 } ] , 2 : [ f u n c t i o n ( r e q u i r e , m o d u l e , e x p o r t s ) { 
+ " u s e   s t r i c t " ; 
+ O b j e c t . d e f i n e P r o p e r t y ( e x p o r t s ,   " _ _ e s M o d u l e " ,   {   v a l u e :   t r u e   } ) ; 
+ v a r   U S E R _ I N F O _ K E Y   =   ' a w s - u s e r I n f o ' ; 
+ e x p o r t s . c o n t a i n s   =   f u n c t i o n   ( a r r ,   e l )   {   r e t u r n   a r r . i n d e x O f ( e l )   >   - 1 ;   } ; 
+ e x p o r t s . s t a r t s W i t h   =   f u n c t i o n   ( a r r ,   e l )   {   r e t u r n   a r r . i n d e x O f ( e l )   = = =   0 ;   } ; 
+ e x p o r t s . f i n d   =   f u n c t i o n   ( a r r ,   p )   { 
+         f o r   ( v a r   _ i   =   0 ,   a r r _ 1   =   a r r ;   _ i   <   a r r _ 1 . l e n g t h ;   _ i + + )   { 
+                 v a r   e l   =   a r r _ 1 [ _ i ] ; 
+                 i f   ( p ( e l ) )   { 
+                         r e t u r n   e l ; 
+                 } 
+         } 
+         r e t u r n ; 
+ } ; 
+ e x p o r t s . f i n d C o o k i e   =   f u n c t i o n   ( n a m e )   { 
+         v a r   c o o k i e s   =   d o c u m e n t . c o o k i e . s p l i t ( ' ; ' ) . m a p ( f u n c t i o n   ( c )   {   r e t u r n   c . t r i m ( ) ;   } ) ; 
+         v a r   c o o k i e   =   e x p o r t s . f i n d ( c o o k i e s ,   f u n c t i o n   ( c )   {   r e t u r n   e x p o r t s . s t a r t s W i t h ( c ,   n a m e   +   " = " ) ;   } ) ; 
+         i f   ( ! c o o k i e )   { 
+                 r e t u r n ; 
+         } 
+         r e t u r n   c o o k i e . r e p l a c e ( n a m e   +   " = " ,   ' ' ) ; 
+ } ; 
+ e x p o r t s . g e t C u r r e n t U s e r   =   f u n c t i o n   ( )   {   r e t u r n   J S O N . p a r s e ( d e c o d e U R I C o m p o n e n t ( e x p o r t s . f i n d C o o k i e ( U S E R _ I N F O _ K E Y ) ) ) . a r n ;   } ; 
+ e x p o r t s . e n c o d e   =   f u n c t i o n   ( s )   {   r e t u r n   e n c o d e U R I C o m p o n e n t ( s ) ;   } ; 
+ e x p o r t s . d e c o d e   =   f u n c t i o n   ( s )   {   r e t u r n   d e c o d e U R I C o m p o n e n t ( s ) ;   } ; 
+ 
+ } , { } ] , 3 : [ f u n c t i o n ( r e q u i r e , m o d u l e , e x p o r t s ) { 
+ " u s e   s t r i c t " ; 
+ v a r   _ _ i m p o r t D e f a u l t   =   ( t h i s   & &   t h i s . _ _ i m p o r t D e f a u l t )   | |   f u n c t i o n   ( m o d )   { 
+         r e t u r n   ( m o d   & &   m o d . _ _ e s M o d u l e )   ?   m o d   :   {   " d e f a u l t " :   m o d   } ; 
+ } ; 
+ O b j e c t . d e f i n e P r o p e r t y ( e x p o r t s ,   " _ _ e s M o d u l e " ,   {   v a l u e :   t r u e   } ) ; 
+ v a r   r e d i r e c t _ 1   =   _ _ i m p o r t D e f a u l t ( r e q u i r e ( " . / r e d i r e c t " ) ) ; 
+ v a r   c o n t e x t _ 1   =   r e q u i r e ( " . / c o n t e x t " ) ; 
+ v a r   h e l p e r s _ 1   =   r e q u i r e ( " . / h e l p e r s " ) ; 
+ v a r   l o g g e r _ 1   =   r e q u i r e ( " . / l o g g e r " ) ; 
+ v a r   I S _ F E A T U R E _ E N A B L E D   =   t r u e ; 
+ v a r   I S _ F E A T U R E _ E N A B L E D _ B L A C K L I S T   =   [ ' c o d e s t a r ' ] ; 
+ v a r   A C C O U N T _ W H I T E L I S T   =   [ ] ; 
+ v a r   A C C O U N T _ B L A C K L I S T   =   [ 
+         ' 6 9 4 9 5 9 4 8 1 3 1 1 ' , 
+         ' 6 1 4 5 2 2 4 5 3 9 6 9 ' , 
+         ' 8 1 9 2 9 6 9 6 9 7 8 7 ' , 
+         ' 7 2 8 1 0 9 3 8 1 7 3 2 ' , 
+         ' 0 2 0 9 2 0 0 9 7 3 3 3 ' , 
+         ' 0 4 3 5 0 8 2 7 9 1 8 9 ' , 
+         ' 0 9 2 8 8 4 3 1 7 7 9 0 ' , 
+         ' 3 4 7 5 9 0 1 8 6 5 1 5 ' , 
+         ' 0 3 4 2 1 8 4 1 1 3 6 3 ' , 
+         ' 3 1 4 9 5 7 9 3 6 3 8 4 ' , 
+         ' 4 6 1 8 2 7 6 5 6 1 7 9 ' , 
+ ] ; 
+ v a r   s e r v i c e ; 
+ v a r   r u n   =   f u n c t i o n   ( )   { 
+         s e r v i c e   =   c o n t e x t _ 1 . d e t e c t S e r v i c e ( w i n d o w . l o c a t i o n . t o S t r i n g ( ) ) ; 
+         i f   ( ! s e r v i c e )   { 
+                 l o g g e r _ 1 . l o g R e d i r e c t ( ' u n k n o w n ' ,   f a l s e ) ; 
+                 l o g g e r _ 1 . l o g E r r o r ( ' u n k n o w n ' ,   f a l s e ) ; 
+                 r e t u r n ; 
+         } 
+         v a r   u s e r   =   h e l p e r s _ 1 . g e t C u r r e n t U s e r ( ) 
+                 . r e p l a c e ( ' a r n : a w s : i a m : : ' ,   ' ' ) 
+                 . r e p l a c e ( ' a r n : a w s : s t s : : ' ,   ' ' ) ; 
+         v a r   i s U s e r W h i t e l i s t e d   =   ! ! h e l p e r s _ 1 . f i n d ( A C C O U N T _ W H I T E L I S T ,   f u n c t i o n   ( a c c o u n t I d )   {   r e t u r n   h e l p e r s _ 1 . s t a r t s W i t h ( u s e r ,   a c c o u n t I d ) ;   } ) ; 
+         v a r   i s U s e r B l a c k l i s t e d   =   ! ! h e l p e r s _ 1 . f i n d ( A C C O U N T _ B L A C K L I S T ,   f u n c t i o n   ( a c c o u n t I d )   {   r e t u r n   h e l p e r s _ 1 . s t a r t s W i t h ( u s e r ,   a c c o u n t I d ) ;   } ) ; 
+         v a r   i s F e a t u r e E n a b l e d F o r C u r r e n t S e r v i c e   =   I S _ F E A T U R E _ E N A B L E D   & &   ! h e l p e r s _ 1 . c o n t a i n s ( I S _ F E A T U R E _ E N A B L E D _ B L A C K L I S T ,   s e r v i c e ) ; 
+         i f   ( ( i s F e a t u r e E n a b l e d F o r C u r r e n t S e r v i c e   | |   i s U s e r W h i t e l i s t e d )   & &   ! i s U s e r B l a c k l i s t e d )   { 
+                 l o g g e r _ 1 . l o g F e a t u r e E n a b l e d ( s e r v i c e ,   t r u e ) ; 
+                 c o n t e x t _ 1 . e n a b l e F e a t u r e ( s e r v i c e ) ; 
+                 r e d i r e c t _ 1 . d e f a u l t ( s e r v i c e ) ; 
+         } 
+         e l s e   { 
+                 l o g g e r _ 1 . l o g F e a t u r e E n a b l e d ( s e r v i c e ,   f a l s e ) ; 
+                 c o n t e x t _ 1 . d i s a b l e F e a t u r e ( s e r v i c e ) ; 
+         } 
+ } ; 
+ t r y   { 
+         r u n ( ) ; 
+ } 
+ c a t c h   ( _ a )   { 
+         l o g g e r _ 1 . l o g E r r o r ( s e r v i c e   | |   ' u n k n o w n ' ,   t r u e ) ; 
+ } 
+ 
+ } , { " . / c o n t e x t " : 1 , " . / h e l p e r s " : 2 , " . / l o g g e r " : 4 , " . / r e d i r e c t " : 5 } ] , 4 : [ f u n c t i o n ( r e q u i r e , m o d u l e , e x p o r t s ) { 
+ " u s e   s t r i c t " ; 
+ O b j e c t . d e f i n e P r o p e r t y ( e x p o r t s ,   " _ _ e s M o d u l e " ,   {   v a l u e :   t r u e   } ) ; 
+ v a r   l o g   =   f u n c t i o n   ( _ a )   { 
+         v a r   k e y   =   _ a . k e y ,   p a g e I d   =   _ a . p a g e I d ,   v a l u e   =   _ a . v a l u e ; 
+         t r y   { 
+                 w i n d o w . A W S C . C l o g . l o g ( k e y ,   v a l u e ,   u n d e f i n e d ,   p a g e I d ) ; 
+         } 
+         c a t c h   ( e )   { 
+                 c o n s o l e . e r r o r ( e ) ; 
+         } 
+ } ; 
+ e x p o r t s . l o g F e a t u r e E n a b l e d   =   f u n c t i o n   ( s e r v i c e ,   i s E n a b l e d )   { 
+         r e t u r n   l o g ( { 
+                 k e y :   ' R O C _ R E D I R _ F E A T U R E _ E N A B L E D ' , 
+                 p a g e I d :   s e r v i c e , 
+                 v a l u e :   i s E n a b l e d   ?   1   :   0 , 
+         } ) ; 
+ } ; 
+ e x p o r t s . l o g C o o k i e V a l u e   =   f u n c t i o n   ( s e r v i c e ,   c o o k i e V a l u e )   { 
+         r e t u r n   l o g ( { 
+                 k e y :   " R O C _ R E D I R _ C O O K I E _ V A L _ "   +   c o o k i e V a l u e , 
+                 p a g e I d :   s e r v i c e , 
+                 v a l u e :   1 , 
+         } ) ; 
+ } ; 
+ e x p o r t s . l o g R e d i r e c t   =   f u n c t i o n   ( s e r v i c e ,   i s R e d i r e c t )   { 
+         r e t u r n   l o g ( { 
+                 k e y :   ' R O C _ R E D I R _ R E D I R E C T ' , 
+                 p a g e I d :   s e r v i c e , 
+                 v a l u e :   i s R e d i r e c t   ?   1   :   0 , 
+         } ) ; 
+ } ; 
+ e x p o r t s . l o g E r r o r   =   f u n c t i o n   ( s e r v i c e ,   i s E r r o r )   { 
+         r e t u r n   l o g ( { 
+                 k e y :   ' R O C _ R E D I R _ E R R ' , 
+                 p a g e I d :   s e r v i c e , 
+                 v a l u e :   i s E r r o r   ?   1   :   0 , 
+         } ) ; 
+ } ; 
+ 
+ } , { } ] , 5 : [ f u n c t i o n ( r e q u i r e , m o d u l e , e x p o r t s ) { 
+ " u s e   s t r i c t " ; 
+ O b j e c t . d e f i n e P r o p e r t y ( e x p o r t s ,   " _ _ e s M o d u l e " ,   {   v a l u e :   t r u e   } ) ; 
+ v a r   h e l p e r s _ 1   =   r e q u i r e ( " . / h e l p e r s " ) ; 
+ v a r   l o g g e r _ 1   =   r e q u i r e ( " . / l o g g e r " ) ; 
+ e x p o r t s . S E R V I C E S   =   [ ' c o d e c o m m i t ' ,   ' c o d e p i p e l i n e ' ,   ' c o d e d e p l o y ' ,   ' c o d e b u i l d ' ,   ' c o d e s t a r ' ] ; 
+ v a r   R O C _ C O O K I E _ E N U M ; 
+ ( f u n c t i o n   ( R O C _ C O O K I E _ E N U M )   { 
+         R O C _ C O O K I E _ E N U M [ R O C _ C O O K I E _ E N U M [ " D E F A U L T _ V A L U E " ]   =   0 ]   =   " D E F A U L T _ V A L U E " ; 
+         R O C _ C O O K I E _ E N U M [ R O C _ C O O K I E _ E N U M [ " N E W _ C O N S O L E _ N O _ C O O K I E " ]   =   1 ]   =   " N E W _ C O N S O L E _ N O _ C O O K I E " ; 
+         R O C _ C O O K I E _ E N U M [ R O C _ C O O K I E _ E N U M [ " O L D _ C O N S O L E _ N O _ C O O K I E " ]   =   2 ]   =   " O L D _ C O N S O L E _ N O _ C O O K I E " ; 
+         R O C _ C O O K I E _ E N U M [ R O C _ C O O K I E _ E N U M [ " F R O M _ N E W _ O P T _ O U T " ]   =   3 ]   =   " F R O M _ N E W _ O P T _ O U T " ; 
+         R O C _ C O O K I E _ E N U M [ R O C _ C O O K I E _ E N U M [ " F R O M _ N E W _ O P T _ I N " ]   =   4 ]   =   " F R O M _ N E W _ O P T _ I N " ; 
+         R O C _ C O O K I E _ E N U M [ R O C _ C O O K I E _ E N U M [ " F R O M _ O L D _ O P T _ I N " ]   =   5 ]   =   " F R O M _ O L D _ O P T _ I N " ; 
+ } ) ( R O C _ C O O K I E _ E N U M   =   e x p o r t s . R O C _ C O O K I E _ E N U M   | |   ( e x p o r t s . R O C _ C O O K I E _ E N U M   =   { } ) ) ; 
+ e x p o r t s . S E R V I C E _ K E Y _ B Y _ S E R V I C E   =   { 
+         c o d e c o m m i t :   ' c c _ o ' , 
+         c o d e d e p l o y :   ' c d _ o ' , 
+         c o d e s t a r :   ' c s _ o ' , 
+         c o d e b u i l d :   ' c b _ o ' , 
+         c o d e p i p e l i n e :   ' c p _ o ' , 
+ } ; 
+ v a r   g e t S e r v i c e K e y   =   f u n c t i o n   ( s e r v i c e )   {   r e t u r n   e x p o r t s . S E R V I C E _ K E Y _ B Y _ S E R V I C E [ s e r v i c e ] ;   } ; 
+ v a r   R E D I R E C T _ I F   =   [ 
+         R O C _ C O O K I E _ E N U M . D E F A U L T _ V A L U E , 
+         R O C _ C O O K I E _ E N U M . N E W _ C O N S O L E _ N O _ C O O K I E , 
+         R O C _ C O O K I E _ E N U M . O L D _ C O N S O L E _ N O _ C O O K I E , 
+         R O C _ C O O K I E _ E N U M . F R O M _ N E W _ O P T _ I N , 
+         R O C _ C O O K I E _ E N U M . F R O M _ O L D _ O P T _ I N , 
+ ] ; 
+ e x p o r t s . R O C _ C O O K I E _ N A M E   =   ' r o c - o p t i n ' ; 
+ v a r   R O C _ D E S T I N A T I O N _ P A T H   =   ' c o d e s u i t e / h o m e ' ; 
+ v a r   R E T U R N _ U R L _ M A X _ L E N G T H   =   1 0 0 0 ; 
+ v a r   g e t C o o k i e F l a g B y S e r v i c e   =   f u n c t i o n   ( s e r v i c e )   { 
+         v a r   r a w R o c C o o k i e   =   h e l p e r s _ 1 . f i n d C o o k i e ( e x p o r t s . R O C _ C O O K I E _ N A M E ) ; 
+         i f   ( ! r a w R o c C o o k i e )   { 
+                 r e t u r n ; 
+         } 
+         v a r   c o o k i e   =   J S O N . p a r s e ( d e c o d e U R I C o m p o n e n t ( r a w R o c C o o k i e ) ) ; 
+         r e t u r n   c o o k i e [ g e t S e r v i c e K e y ( s e r v i c e ) ] ; 
+ } ; 
+ v a r   e n c o d e O r O m i t R e t u r n U r l   =   f u n c t i o n   ( r e t u r n U r l )   { 
+         i f   ( r e t u r n U r l . l e n g t h   >   R E T U R N _ U R L _ M A X _ L E N G T H )   { 
+                 r e t u r n   ' ' ; 
+         } 
+         v a r   e n c o d e d   =   h e l p e r s _ 1 . e n c o d e ( r e t u r n U r l ) ; 
+         i f   ( e n c o d e d . l e n g t h   >   R E T U R N _ U R L _ M A X _ L E N G T H )   { 
+                 r e t u r n   ' ' ; 
+         } 
+         r e t u r n   e n c o d e d ; 
+ } ; 
+ v a r   c r e a t e R e d i r e c t U r l   =   f u n c t i o n   ( s e r v i c e )   { 
+         i f   ( ! w i n d o w . l o c a t i o n   | |   ! w i n d o w . l o c a t i o n . h r e f )   { 
+                 r e t u r n ; 
+         } 
+         v a r   r e t u r n U r l   =   e n c o d e O r O m i t R e t u r n U r l ( w i n d o w . l o c a t i o n . t o S t r i n g ( ) ) ; 
+         r e t u r n   " "   +   w i n d o w . l o c a t i o n . h r e f . s p l i t ( s e r v i c e ) [ 0 ]   +   R O C _ D E S T I N A T I O N _ P A T H   +   " ? s e r v i c e = "   +   s e r v i c e   +   " & r e t u r n U r l = "   +   r e t u r n U r l ; 
+ } ; 
+ v a r   i s O a u t h R o u t e   =   f u n c t i o n   ( )   { 
+         r e t u r n   [ ' c o d e = ' ,   ' g i t h u b C o d e = ' ] . s o m e ( f u n c t i o n   ( o a u t h P a r a m )   {   r e t u r n   h e l p e r s _ 1 . c o n t a i n s ( w i n d o w . l o c a t i o n . t o S t r i n g ( ) ,   o a u t h P a r a m ) ;   } ) ; 
+ } ; 
+ v a r   r e d i r e c t I f N e c e s s a r y   =   f u n c t i o n   ( s e r v i c e )   { 
+         v a r   f l a g   =   g e t C o o k i e F l a g B y S e r v i c e ( s e r v i c e ) ; 
+         i f   ( f l a g )   { 
+                 l o g g e r _ 1 . l o g C o o k i e V a l u e ( s e r v i c e ,   f l a g ) ; 
+         } 
+         i f   ( f l a g   = = =   u n d e f i n e d   | |   ! h e l p e r s _ 1 . c o n t a i n s ( R E D I R E C T _ I F ,   f l a g )   | |   i s O a u t h R o u t e ( ) )   { 
+                 l o g g e r _ 1 . l o g E r r o r ( s e r v i c e ,   f a l s e ) ; 
+                 l o g g e r _ 1 . l o g R e d i r e c t ( s e r v i c e ,   f a l s e ) ; 
+                 r e t u r n ; 
+         } 
+         v a r   u r l   =   c r e a t e R e d i r e c t U r l ( s e r v i c e ) ; 
+         i f   ( ! u r l   | |   ! w i n d o w . l o c a t i o n . r e p l a c e )   { 
+                 l o g g e r _ 1 . l o g E r r o r ( s e r v i c e ,   f a l s e ) ; 
+                 l o g g e r _ 1 . l o g R e d i r e c t ( s e r v i c e ,   f a l s e ) ; 
+                 r e t u r n ; 
+         } 
+         l o g g e r _ 1 . l o g E r r o r ( s e r v i c e ,   f a l s e ) ; 
+         l o g g e r _ 1 . l o g R e d i r e c t ( s e r v i c e ,   t r u e ) ; 
+         w i n d o w . l o c a t i o n . r e p l a c e ( u r l ) ; 
+ } ; 
+ e x p o r t s . d e f a u l t   =   r e d i r e c t I f N e c e s s a r y ; 
+ 
+ } , { " . / h e l p e r s " : 2 , " . / l o g g e r " : 4 } ] } , { } , [ 3 ] ) ; 
+    /       https://d2ln6p4819qxdl.cloudfront.net/index.js     ô%      ô%                    ‚    :  Y    ?Z   ‚   `    P   `   ^×Z   ‚   `    [   `   ^×Z   ‚   `    P   `   ^×Z   ‚   `    [   `   ^×Z   ‚	   `    P
+   `   ^[   P   ç Q™˜Ï˜€ ÌÊ¨+˜Ë˜ ŸÊ¨F˜Ë˜ŸÊ¨˜Ë˜;ŸÊ¨€  ¨˜Ë˜ŸÊ¨€  û˜Õ¨˜¬€  ü ‡!«!ÿÿÿÿ            «+’H!«!       C             	                                      	   È     È                    G‚    ‰   Qˆ   ™Ì˜€ ¿ Œ!«!ÿÿÿÿ      r         «+’H!«!    	      r  x          %                        	          €     ¿     ¿                   ‚    ‰   Q=    š   'E   æQš   æ‰   Q>W   Q )   mˆ   ˆ   V   7ç QæV   #?W   QQãV   ˆ   Ù   Ëÿÿÿæˆ   ™Ë˜€ q˜Ú˜&):Ö˜ÿÿÿüÎ˜ÿÿÿõ×˜    function   require   lengthŒ!«!ÿÿÿÿ      e   n   t   o   u   i      «+’H!«!           o  5      	   Q                         #          €  (   m     m                   ˆ  ˆ   7   æˆ  ˆ   7    æ=    š   'E   æQš   æW   QT  E   æQV   æ   æV   ˆ   C: æˆ     æˆ  ˆ   C: æš   A=   ˆ   =   ,  R W  QV  =   6   QV  pæˆ  ˆ   [   [    ]   8W  Qˆ  ˆ   7>7¸   
+V  5   ‚   V  V  5   ˆ  ˆ  ˆ  ˆ  l Qæˆ  ˆ   75   ™˜.˜Ì˜ÌÙ˜˜ĞË˜›€  ğšÿÿÿÌ˜›€  Üšÿÿÿ0Û˜È˜(˜Ï˜Ï˜Ğ˜ÿÉ˜YĞ˜    function   require   Error)   Cannot find module '   '!   MODULE_NOT_FOUND	   code   exports	   callŒ!«!ÿÿÿÿ      i   f   c   a   p      «+’H!«!            !«!       !«!   exports‹!«!    !«!          o/<c  0                                                   C    C                 ˆ  ˆ   7?7T  7W   Qˆ  V   D
+   æQT  æ: ™˜€ 'Ö˜Õ˜› Œ!«!ÿÿÿÿ      r   n       «+’Hš˜;ø       Ê5š˜;øÊ5š˜;ø    6   :   Ê5 š˜;øÊ5!«!    	   	   [1]<c  å          6                                  †  Ø  »  Ğ  »                    š    ¸   
+ˆ   =   [    C]   ç QT  =   : ‰   QT  =   : ‰   Qˆ   =   0   Qˆ   =   0	   Qˆ   =
+   0   Q<    ‰   Qˆ   ‚   0   Qˆ   ‚   0   Qˆ   ‚   0   Qˆ   ‚   0   Qˆ   ‚   0   Qˆ   ‚   0   Q™  Û˜/ÿÿÿÑ¤˜É˜É ˜É˜É Ğ Ğ Ğ ˜Ë Ğ¨Ğ¨Ğ¨Ğ¨#Ğ¨'Ğ¨+    Object   defineProperty   __esModule   value   ./redirect   ./helpers%   meta-features-json   FAC_META_ID   roc-redirect   FAC_KEY#   data-featuresjson   FAC_ATTR   detectService   enableFeature   disableFeature!   enableFeatureFac'   enableFeatureCookie)   disableFeatureCookie!«!   °Ä^BŒ!«!ÿÿÿÿ      require   module   exports   redirect_1   helpers_1   MAX_COOKIE_AGE       «+’H!«!       !«!   value‹!«!    !«!        5   [1]</exports.detectServicec                                                ‚  T  ç  K  ç  
+                  ˆ  ¸    
+ˆ  5   ‚    : ™ ˜Û˜£ 	   find   SERVICESŒ!«!ÿÿÿÿ      loc       «+’H!«!       9   [1]</exports.detectService/<c  4                                                ”  ã  ‹  ã     8              ˆ   ¸    
+=   : >7¸   
+=   T  =   : ×ÿI™˜DÑ˜Û˜)    split   #   indexOf   /   /homeŒ!«!ÿÿÿÿ      service        «+’Hš˜;ø       Ê5 š˜;øÊ5!«!       5   [1]</exports.enableFeaturec  6                                                
+  t    t     !              T  =    H   æˆ   ¸   
+ç     æˆ   ¸   
+ç  æQ™ ˜ÉÒ˜Õ˜ ¥    codepipeline'   enableFeatureCookie!   enableFeatureFacŒ!«!ÿÿÿÿ      service        «+’Hš˜;ø       Ê5 !«!       7   [1]</exports.disableFeatureb ˜  ç    ç     "          Ê5!«!       ;   [1]</exports.enableFeatureFacb             $   `          B   C  
+  C     8          Ê5 Ê5!«!       A   [1]</exports.enableFeatureCookiec   f                                    	             6    -    #   '             ˆ   ¸    
+š   5   ¸   
+:  =   :    æ=      æ=   æW   Qš   =   ˆ   =	   V   0
+   Q™ ˜İ˜È˜ÿÿÿíÜ ˜á     contains   window   location   toString   .aws.amazon.com/   domain=.aws.amazon.com;      documenti   codepipeline-feature-flag:roc-redirect=true;max-age=   ;   cookieŒ!«!ÿÿÿÿ      domain         «+’Hš˜;ø       Ê5 !«!       C   [1]</exports.disableFeatureCookieb  I  ·  @  ·  '   (          Ê5š˜;øÊ5!«!       !«!   ./helpersŒ!«!   !«!   ./redirectŒ!«!      !«!     	   	   [2]<c  ¡          !                                   †  ç  ÿ  ß  ÿ  +                  š    ¸   
+ˆ   =   [    C]   ç Q=   ‰   Qˆ   ‚   0   Qˆ   ‚   0   Qˆ   ‚   0   Qˆ   ‚   0   Qˆ   ‚   0	   Qˆ   ‚   0
+   Qˆ   ‚   0   Q™  Û˜/ÿÿÿÑ¤˜Ë Ğ Ğ Ğ¨:Ğ¨BĞ Ğ Ğ¨F    Object   defineProperty   __esModule   value   aws-userInfo   contains   startsWith	   find   findCookie   getCurrentUser   encode   decodeŒ!«!ÿÿÿÿ      require   module   exports   USER_INFO_KEY       «+’H!«!       !«!   value‹!«!    !«!        +   [2]</exports.containsc                                                  	  ¸	  …	  ¸	  /                 T  ¸    
+T : ×ÿ™˜(Í˜    indexOfŒ!«!ÿÿÿÿ      arr   el        «+’Hš˜;ø       Ê5 !«!       /   [2]</exports.startsWithc                                                  Ø	  
+  Ï	  
+  0                 T  ¸    
+T : >H™˜*Í˜    indexOfŒ!«!ÿÿÿÿ      arr   el        «+’Hš˜;ø       Ê5!«!       #   [2]</exports.findc  a          3                                     
+  Ê
+  
+  Ê
+  1                >W   QT  W  Q 9   mV  V   7W  QT V  :    æV  æV   #?W   QQãV   V  Ù    ¼ÿÿÿæ™ ˜	˜È 9*I¦˜©2 ˜Î ˜È˜¦˜¬9ª2˜5Î¨7¨2˜"Ö¨8˜¡    lengthŒ!«!ÿÿÿÿ      arr   p   _i   arr_1   el       «+’Hš˜;ø       I   0       Ê5 !«!       /   [2]</exports.findCookiec  x       	   %                                   ‚  ê
+    á
+    :                 š    5   ¸   
+=   : ¸   
+‚    : W   Qˆ  ¸   
+V   ‚   : W  QV      ææV  ¸   
+ˆ   =   =   : ™ ˜Ö˜
+Ï˜È ˜Õ˜	È ˜˜¦˜©Aª@˜Û˜£    document   cookie   split   ;   map	   find   replace   =   Œ!«!ÿÿÿÿ   	   name   cookies   cookie      «+’H!«!        A   [2]</exports.findCookie/cookies<c                                                  -  E  $  E  ;   :              T  ¸    
+:  ™˜@Ê˜›
+ 	   trimŒ!«!ÿÿÿÿ      c        «+’Hš˜;ø       Ê5!«!       ?   [2]</exports.findCookie/cookie<c                                                  x  ©  o  ©  <   0              ˆ  ¸    
+T  ˆ   =   : ™˜6Ú˜›#    startsWith   =Œ!«!ÿÿÿÿ      c        «+’Hš˜;ø       Ê5š˜;øÊ5!«!       7   [2]</exports.getCurrentUserc   7                                    
+             %  y    y  B   "              š    ¸   
+š      ˆ   ¸   
+ˆ   : : : 5   ™˜'ç˜%›ÿÿÿí›ÿÿÿõÈ˜G 	   JSON   parse%   decodeURIComponent   findCookie   arnŒ!«!ÿÿÿÿ              «+’Hš˜;ø       Ê5!«!       '   [2]</exports.encodec                                                  •  º  Œ  º  C                 š        T  : ™˜ Í˜› %   encodeURIComponentŒ!«!ÿÿÿÿ      s        «+’Hš˜;ø       Ê5!«!       '   [2]</exports.decodeb Ö  û  Í  û  D             Ê5š˜;øÊ5!«!            !«!    	   	   [3]<c  !        ]                                     ±    ±  F          
+       ¹W  QV  E   æQV  5    æD   æQ‚    æW   Qš   ¸   
+T =   [   C]   ç QV   T  =   : : ‰   QT  =   : ‰   QT  =   : ‰   QT  =   : ‰   QC‰   QZ   =	   `    ‰   QZ    ‰   Qf   ‰ 	  Q‚   W  Q†V  ç  Q9   æ˜‹  Qv‹  Qˆ   ¸
+   
+ˆ 
+  D   æQ=   æCç QÉ æ™¦ ˜ç¨KÙ˜/ÿÿÿÑ¤˜Î˜›ÿÿÿğÉ ˜É˜É ˜É˜É ˜É˜É ˜§˜ Ğ ˜Ë ˜Ë¨`˜ ˜Ê¨x
+¡˜Ñ¨{˜Ì ˜æ¨    __importDefault   Object   defineProperty   __esModule   value   ./redirect   ./context   ./helpers   ./logger   codestar   logError   unknownŒ!«!ÿÿÿÿ      require   module   exports   __importDefault   redirect_1   context_1   helpers_1   logger_1%   IS_FEATURE_ENABLED9   IS_FEATURE_ENABLED_BLACKLIST#   ACCOUNT_WHITELIST#   ACCOUNT_BLACKLIST   service   run   .this      ˆ!«!          _a         «+’H!«!        +   [3]</__importDefault<c  2                                               x  À  o  À  H   A              T  E   æQT  5    æ   æT     æ[    T  ]   æ™ ˜ÓÔ˜)É     __esModule   defaultŒ!«!ÿÿÿÿ      mod        «+’H!«!       !«!   default‹!«!    š˜;ø       Ê5 !«!       !«!   value‹!«!    !«!      !«!   694959481311!«!   614522453969!«!   819296969787!«!   728109381732!«!   020920097333!«!   043508279189!«!   092884317790!«!   347590186515!«!   034218411363!«!   314957936384!«!   461827656179   !«!           runC  £         q                         7             /  X  &  X  a                 ˆ  ¸    
+š   5   ¸   
+:  : ‰
+  Qˆ
+   4   æˆ  ¸   
+=   Bç Qˆ  ¸   
+=   Bç Qæˆ  ¸   
+:  ¸   
+=	   =
+   : ¸   
+=   =
+   : ‰   Qˆ  ¸   
+ˆ  ‚    :   W   Qˆ  ¸   
+ˆ	  ‚   :   W  Qˆ  E!   æQˆ  ¸   
+ˆ  ˆ
+  :  æW  QV  D   æQV   æE   æQV   æK   æˆ  ¸   
+ˆ
+  Cç Qˆ  ¸   
+ˆ
+  ç Qˆ  ¸   
+ˆ
+  ç Q1   æˆ  ¸   
+ˆ
+  Bç Qˆ  ¸   
+ˆ
+  ç Qæ™ ˜İ˜"›ÿÿÿèÉ ˜˜¦˜Ö ˜Ö ˜©wªh˜Ì˜Ê Ê˜	Ê Ê˜	É ˜˜˜Ö˜Ê ˜˜˜Ö˜Ê ˜Ì˜:Ö˜Ê ˜×˜@¦˜Ö ˜Õ ˜Û¨s ˜Ö ˜Ö¨w    detectService   window   location   toString   logRedirect   unknown   logError   getCurrentUser   replace   arn:aws:iam::      arn:aws:sts::	   find   contains#   logFeatureEnabled   enableFeature   default   disableFeatureŒ!«!ÿÿÿÿ   	   user#   isUserWhitelisted#   isUserBlacklistedC   isFeatureEnabledForCurrentService        «+’H!«!        -   run/isUserWhitelisted<b ¾  û  µ  û  k   I          Ê5 !«!       -   run/isUserBlacklisted<c                                                  G  „  >  „  l   I              ˆ  ¸    
+ˆ   T  : ™˜WÔ˜›'    startsWithŒ!«!ÿÿÿÿ      accountId        «+’Hš˜;ø       Ê5š˜;øÊ5š˜;ø     İ         î   0   ÿÿÿÿÊ5 !«!       !«!   ./contextŒ!«!   !«!   ./helpersŒ!«!   !«!   ./loggerŒ!«!   !«!   ./redirectŒ!«!      !«!    	   	   [4]<c  g          ,                                     ø     ğ                       š    ¸   
+T =   [    C]   ç Q‚   ‰   QT ‚   0   QT ‚   0   QT ‚   0   QT ‚   0   Q™  Ù˜/ÿÿÿÑ¤˜Ë¨€  ‹Î¨€  ’Î¨€  ™Î¨€   Î¨€  ¨    Object   defineProperty   __esModule   value#   logFeatureEnabled   logCookieValue   logRedirect   logErrorŒ!«!ÿÿÿÿ      require   module   exports   log       «+’H!«!       !«!   value‹!«!    !«!          logC        
+                                       r  3  i  3  ‚         
+       T  5    W   QT  5   W  QT  5   W  Q†š   5   5   ¸   
+V   V  š   V  ç Q*   æ˜‹  Qv‹  Qš   ¸	   
+V  ç QÉ æ™ ˜Í˜Í˜Í ,¡˜ó  ˜Ì ˜×      key   pageId   value   window	   AWSC	   Clog   log   undefined   console   errorŒ!«!ÿÿÿÿ      _a   key   pageId   value       ˆ!«!          e         «+’Hš˜;ø     (   0      [   !   ÿÿÿÿ@       Ê5!«!       =   [4]</exports.logFeatureEnabledc  9                                               Z  ğ  Q  ğ  ‹   %              ˆ   [    =    ]   T  ]   T    æ?   æ>æ]   : ™ ˜Ë ˜Ê ˜È ˜Ô¨€  Œ˜«€  ‘ 3   ROC_REDIR_FEATURE_ENABLED   key   pageId   valueŒ!«!ÿÿÿÿ      service   isEnabled        «+’H!«!       !«!   key‹!«!!«!   pageId‹!«!!«!   value‹!«!    š˜;ø       Ê5 !«!       7   [4]</exports.logCookieValuec  ,                                                 ¦    ¦  ’   "              ˆ   [    =    T ]   T  ]   ?]   : ™ ˜Ë ˜Î ˜È ˜®€  “˜«€  ˜ +   ROC_REDIR_COOKIE_VAL_   key   pageId   valueŒ!«!ÿÿÿÿ      service   cookieValue        «+’H!«!       !«!   key‹!«!!«!   pageId‹!«!!«!   value‹!«!    š˜;ø       Ê5 !«!       1   [4]</exports.logRedirectc  9                                               Ç  X  ¾  X  ™                 ˆ   [    =    ]   T  ]   T    æ?   æ>æ]   : ™ ˜Ë ˜Ê ˜È ˜Ô¨€  š˜«€  Ÿ %   ROC_REDIR_REDIRECT   key   pageId   valueŒ!«!ÿÿÿÿ      service   isRedirect        «+’H!«!       !«!   key‹!«!!«!   pageId‹!«!!«!   value‹!«!    š˜;ø       Ê5 !«!       +   [4]</exports.logErrorc  9                                               v  ü  m  ü                    ˆ   [    =    ]   T  ]   T    æ?   æ>æ]   : ™ ˜Ë ˜Ê ˜È ˜Ô¨€  ¡˜«€  ¦    ROC_REDIR_ERR   key   pageId   valueŒ!«!ÿÿÿÿ      service   isError        «+’H!«!       !«!   key‹!«!!«!   pageId‹!«!!«!   value‹!«!    š˜;ø       Ê5š˜;øÊ5!«!            !«!    	   	   [5]<c           ™                                   †    Ë%    Ë%  ¨                 š    ¸   
+ˆ   =   [    C]   ç QT  =   : ‰   QT  =   : ‰   Qˆ   f   0   Q‚   ˆ   5   D   æQˆ   [   0   æW   ç Qˆ   [   =   ]	   =
+   ]   =   ]   =   ]   =   ]   0   Q‚   ‰   QZ   V   5   `    V   5   `   V   5   `   V   5   `   V   5   `   ‰   Qˆ   =   0   Q=   ‰   QXè‰   Q‚   ‰ 	  Q‚   ‰ 
+  Q‚   ‰   Q‚	   ‰   Q‚
+   W  Qˆ   V  0   Q™  Û˜/ÿÿÿÑ¤˜É˜É ˜É˜É Ğ ˜ ˜®€  ¶å¨€  ¯˜¬€  ·Ê ˜Ê ˜Ê ˜Ê ˜Ê ˜Ğ  ˜Ë ˜¥˜Î ˜Î ˜Î ˜Î ˜Ô  Ğ ˜Ë ˜É ˜Ë¨€  Ñ˜Ë¨€  Û˜Ë¨€  â˜Ë   ˜Ê¨€  ùÏ      Object   defineProperty   __esModule   value   ./helpers   ./logger   SERVICES   ROC_COOKIE_ENUM	   cc_o   codecommit	   cd_o   codedeploy	   cs_o   codestar	   cb_o   codebuild	   cp_o   codepipeline-   SERVICE_KEY_BY_SERVICE   DEFAULT_VALUE+   NEW_CONSOLE_NO_COOKIE+   OLD_CONSOLE_NO_COOKIE   FROM_NEW_OPT_IN   FROM_OLD_OPT_IN   roc-optin   ROC_COOKIE_NAME   codesuite/home   defaultŒ!«!ÿÿÿÿ      require   module   exports   helpers_1   logger_1   ROC_COOKIE_ENUM   getServiceKey   REDIRECT_IF)   ROC_DESTINATION_PATH+   RETURN_URL_MAX_LENGTH-   getCookieFlagByService+   encodeOrOmitReturnUrl#   createRedirectUrl   isOauthRoute'   redirectIfNecessary      «+’H!«!       !«!   value‹!«!    !«!      !«!   codecommit!«!   codepipeline!«!   codedeploy!«!   codebuild!«!   codestar   !«!          [5]</<c  w                                                 :  K  1  K  ¯   
+              T  T  >0    =    9QT  T  ?0   =   9QT  T  ×0   =   9QT  T  ×0   =   9QT  T  ×0   =   9QT  T  ×0   =   9Q™ ˜Ó ˜Ó ˜Ô ˜Ô ˜Ô ˜Ô     DEFAULT_VALUE+   NEW_CONSOLE_NO_COOKIE+   OLD_CONSOLE_NO_COOKIE!   FROM_NEW_OPT_OUT   FROM_NEW_OPT_IN   FROM_OLD_OPT_INŒ!«!ÿÿÿÿ      ROC_COOKIE_ENUM        «+’Hš˜;ø       Ê5 !«!            !«!       !«!   codecommit‹!«!!«!   codedeploy‹!«!!«!   codestar‹!«!!«!   codebuild‹!«!!«!   codepipeline‹!«!    !«!           getServiceKeyC                                                 U  ’  L  ’  ¾                 ˆ   5    T  7™˜)Î˜0 -   SERVICE_KEY_BY_SERVICEŒ!«!ÿÿÿÿ      service        «+’Hš˜;ø       Ê5!«!       -   getCookieFlagByServiceC d          ,                                      
+  ö    ö  É   &             ˆ   ¸    
+ˆ   5   : W   QV       ææš   ¸   
+š      V   : : W  QV  ˆ   T  : 7™ ˜Ö˜È ˜˜¦˜¡   ª€  Î˜Ú˜›ÿÿÿõÈ ˜Í˜¤    findCookie   ROC_COOKIE_NAME	   JSON   parse%   decodeURIComponentŒ!«!ÿÿÿÿ      service   rawRocCookie   cookie       «+’Hš˜;ø        Ê5!«!       +   encodeOrOmitReturnUrlC T          ,                                         !     !  Ñ   %             T  Ù    ˆ      æ=   æˆ   ¸   
+T  : W   QV   Ù    ˆ      æ=   æV   ™ ˜Î¦˜­€  Úª€  Õ˜Ï˜
+È ˜Ï¦˜¥  ª€  Ù˜¤    length      encodeŒ!«!ÿÿÿÿ      returnUrl   encoded       «+’Hš˜;ø0       Ê5!«!       #   createRedirectUrlC           *                                      *!  L"  !!  L"  Û   !             š    5    D   æQš    5   5    æ   ææˆ 
+  š    5   ¸   
+:  : W   Q=   š    5   5   ¸   
+T  : >7ˆ   =   T  =   V   ™ ˜˜Ò˜Ñ¦˜¡   ª€  ß˜×˜"›ÿÿÿêÈ ˜Ş˜á     window   location	   href   toString      split   ?service=   &returnUrl=Œ!«!ÿÿÿÿ      service   returnUrl       «+’Hš˜;ø        Ê5 !«!          isOauthRouteC  *                                                j"  ø"  a"  ø"  â                  Z   =    `    =   `   ¸   
+‚    : ™ ˜Ê˜	Ö˜£    code=   githubCode=	   someŒ!«!ÿÿÿÿ              «+’H!«!           isOauthRoute/<c  (                                                ¡"  ô"  ˜"  ô"  ã   2              ˆ   ¸    
+š   5   ¸   
+:  T  : ™˜Aİ˜ÿÿÿí›<    contains   window   location   toStringŒ!«!ÿÿÿÿ      oauthParam        «+’Hš˜;ø       Ê5 š˜;øÊ5!«!       '   redirectIfNecessaryC @         d                          '            #   %  #   %  å   #             ˆ 	  T  : W   QV      æˆ   ¸    
+T  V   ç QæV   š   HD0   æQˆ   ¸   
+ˆ   V   :  D   æQˆ   :  æ0   æˆ   ¸   
+T  Bç Qˆ   ¸   
+T  Bç Qæˆ   T  : W  QV   D   æQš   5   5    æ0   æˆ   ¸   
+T  Bç Qˆ   ¸   
+T  Bç Qæˆ   ¸   
+T  Bç Qˆ   ¸   
+T  Cç Qš   5   ¸   
+V  ç Q™ ˜É˜È ˜¦˜Ø  ˜Ñ˜Õ˜Ñ˜)¦˜Ô ˜Ô ˜©€  øª€  ï˜É˜È ˜˜Ì˜Ñ¦˜Ô ˜Ô ˜©€  øª€  õ˜Ô ˜Ô ˜Ù     logCookieValue   undefined   contains   logError   logRedirect   window   location   replaceŒ!«!ÿÿÿÿ      service	   flag   url       «+’Hš˜;ø@       Ê5 š˜;øÊ5!«!       !«!   ./helpersŒ!«!   !«!   ./loggerŒ!«!      !«!            !«!      Œ!«!       š˜;ø î´îÇD      \5¤\\5¤]?ì\:˜F   M    O^firstPartyDomain=amazon.com,:https://d2ln6p4819qxdl.cloudfront.net/index.js strongly-framed 1 security-info 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 request-method GET response-head HTTP/2.0 200 OK
+content-type: application/javascript
+content-length: 9716
+date: Sun, 06 Jan 2019 01:45:43 GMT
+last-modified: Thu, 11 Oct 2018 21:55:42 GMT
+etag: "e440db05e439413faf1673f6d7b686c3"
+accept-ranges: bytes
+server: AmazonS3
+x-cache: RefreshHit from cloudfront
+via: 1.1 6f7697552e0139e5421fb42084c9ead3.cloudfront.net (CloudFront)
+x-amz-cf-id: n_k3mPB-b7T-93jdJtgDPltYNEEy_PjH9C41TQot3heqd4NbpVHn4Q==
+X-Firefox-Spdy: h2
+ original-response-headers content-type: application/javascript
+content-length: 9716
+date: Sun, 06 Jan 2019 01:45:43 GMT
+last-modified: Thu, 11 Oct 2018 21:55:42 GMT
+etag: "e440db05e439413faf1673f6d7b686c3"
+accept-ranges: bytes
+server: AmazonS3
+x-cache: RefreshHit from cloudfront
+via: 1.1 6f7697552e0139e5421fb42084c9ead3.cloudfront.net (CloudFront)
+x-amz-cf-id: n_k3mPB-b7T-93jdJtgDPltYNEEy_PjH9C41TQot3heqd4NbpVHn4Q==
+X-Firefox-Spdy: h2
+ uncompressed-len 0 net-response-time-onstart 1235 net-response-time-onstop 1282 alt-data 1;9716,javascript/moz-bytecode-20190105210558 alt-data-from-child 1   ¸Ú

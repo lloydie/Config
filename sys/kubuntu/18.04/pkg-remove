@@ -1,0 +1,18 @@
+cups
+cups-common 
+cups-daemon 
+cups-filters
+cups-server-common 
+cups-filters-core-drivers 
+cups-ipp-utils cups-pk-helper 
+unattended-upgrades whoopsie apport cryptsetup cryptsetup-bin ppp pptp-linux 
+akregator kmail plasma-discover muon kate kontact konversation
+libreoffice-writer okular skanlite libreoffice-draw java-common 
+firefox gwenview kde-spectacle 
+cantata mpd k3b
+ktnef 
+libreoffice-java-common 
+libreoffice-math 
+libkf5contacteditor5
+kleopatra kwalletmanager 
+plasma-vault 

@@ -1,0 +1,1 @@
+{"xhrTestDomain":"decentraleyes.org","showIconBadge":true,"blockMissing":false,"disablePrefetch":true,"stripMetadata":true,"whitelistedDomains":{"pornhub.com":true,"gofirmware.com":true},"amountInjected":1461}

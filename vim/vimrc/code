@@ -1,0 +1,26 @@
+" Code
+set fileformats=unix
+set nowrap
+set number
+
+" Tab
+set autoindent
+"   set expandtab
+set softtabstop=4
+set shiftwidth=4
+
+" Whitespace
+" ↴↲
+" →» ◀▸ ←→ ❮❯
+" ─━ ┄┅ ┈┉
+" │┃ ╎ ┆┇ ┊┋
+set listchars=tab:▸\ 
+set listchars+=trail:·
+set listchars+=eol:↴
+set listchars+=extends:…
+set listchars+=precedes:…
+set fillchars+=vert:│
+set list
+
+set splitbelow splitright
+

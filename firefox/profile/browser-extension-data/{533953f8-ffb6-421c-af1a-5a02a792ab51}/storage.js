@@ -1,0 +1,1 @@
+{"enabled":false,"version":"0.1.5","last-update":1542800937600,"executable":"konsole","args":"-hold -e 'echo \"[FILENAME]\"'","cookies":false,"ported":true}

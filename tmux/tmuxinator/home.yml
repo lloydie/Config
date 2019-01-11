@@ -1,0 +1,18 @@
+# /home/i/.config/tmuxinator/home.yml
+
+name: home
+root: ~/
+
+windows:
+    - Shell:
+        -
+    - Code:
+        - vim
+    - Config:
+        - cd ~/cfg
+        - vi ~/cfg/vim/vimrc/interface
+    - Log:
+        - tail -f /var/log/syslog
+    - Docs:
+        - cd ~/doc
+        - vi
