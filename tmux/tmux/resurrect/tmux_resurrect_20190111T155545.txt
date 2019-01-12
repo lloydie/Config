@@ -1,0 +1,4 @@
+pane	0	0	:bash	1	:*	0	:/home/i/.Config	0	vim	:vim
+pane	0	0	:bash	1	:*	1	:/home/i	1	bash	:
+window	0	0	1	:*	58c5,213x50,0,0[213x39,0,0,0,213x10,0,40,4]
+state	0	

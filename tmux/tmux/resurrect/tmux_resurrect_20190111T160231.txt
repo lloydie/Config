@@ -1,0 +1,9 @@
+pane	0	0	:bash	1	:*	0	:/home/i/.Config	0	vim	:vim
+pane	0	0	:bash	1	:*	1	:/home/i	1	bash	:
+pane	4	0	:bash	1	:*	0	:/home/i/.Config/tmux/tmux/plugins/tmux-resurrect	1	bash	:
+pane	6	0	:bash	1	:*	0	:/home/i	0	bash	:
+pane	6	0	:bash	1	:*	1	:/home/i	1	bash	:
+window	0	0	1	:*	58c5,213x50,0,0[213x39,0,0,0,213x10,0,40,4]
+window	4	0	1	:*	665f,213x48,0,0,10
+window	6	0	1	:*	6a9c,213x50,0,0[213x25,0,0,13,213x24,0,26,14]
+state	6	

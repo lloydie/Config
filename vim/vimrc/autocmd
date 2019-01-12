@@ -1,6 +1,7 @@
 "test7
 set shellcmdflag=-ic
 
+au BufWritePost .Config/tmux/tmux.conf/* silent !cfg-tmux-update
 autocmd BufWritePost .Config/vim/* silent !cfg-vim-update
 autocmd BufWritePost .vim/colors/* silent !cfg-vim-update
 autocmd BufWritePost .vimrc source $MYVIMRC

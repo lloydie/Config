@@ -1,7 +1,15 @@
+set -g prefix F2
+
 set-window-option -g mode-keys vi
+
+bind-key -n M-h split-window -h # ctrl-\
+bind-key -n M-v split-window -v
+#:Pane navigation
+
+# Clipboard
 bind-key p paste-buffer
 bind-key P choose-buffer
 
-set -g prefix F2
 
+# Reload config
 bind r source-file ~/.tmux.conf \; display "Reloaded config"

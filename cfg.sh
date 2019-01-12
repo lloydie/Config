@@ -2,7 +2,7 @@
 
 cfg-bash-update() {
 	find ~/.Config/bash/{bashrc,alias}/ -type f -executable | sort | xargs -L1 cat > ~/.bashrc
-	find /usr/local/helper -type f -executable | xargs -L1 cat >> ~/.bashrc
+	find ~/helper -type f -executable | xargs -L1 cat >> ~/.bashrc
 	. ~/.bashrc
 }
 
@@ -12,8 +12,8 @@ cfg-tmux-update() {
 }
 
 cfg-tmux-tpm-setup() {
-	rm -r ~/.tmux/plugins/tpm
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    rm -r ~/.tmux/plugins/tpm
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 cfg-vim-update() {
@@ -39,16 +39,8 @@ cfg-vim-plugin-setup() {
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 }
 
-
-
-
-cfg-vim-plugin-youcompleteme-setup() {
-    cd ~/.vim/bundle/YouCompleteMe || exit
-    python3 install.py --all
-}
-
 if [ -d ~/.Config ]; then
-    echo yes
+    echo ''
 else
     git clone https://github.com/lloydie/Config.git ~/.Config
 fi

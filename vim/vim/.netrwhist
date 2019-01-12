@@ -1,6 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/arc/nomad/home/me/hack/x/pkg/pool/firefox/src/65.0b8/xpcom/rust/xpcom'
 let g:netrw_dirhist_2='/arc/nomad/home/me/hack/x/pkg/pool/gnuzilla/src/master'
 let g:netrw_dirhist_3='/arc/nomad/home/me/cfg/bash/helper'
 let g:netrw_dirhist_4='/arc/nomad/home/me/cfg/tmux/tmux.conf'
+let g:netrw_dirhist_5='/home/i/.Config/bash/bashrc'
+let g:netrw_dirhist_6='/home/i/.Config/bash'
+let g:netrw_dirhist_7='/home/i/.Config/bash/bashrc'
