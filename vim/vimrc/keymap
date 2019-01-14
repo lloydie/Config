@@ -1,5 +1,4 @@
 " Leader
-"let mapleader = '<F3>'
 map <Leader>Q <esc>:q!<cr>
 map <Leader>q <esc>:wq<cr>
 map <Leader>w <esc>:w<cr>

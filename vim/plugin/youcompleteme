@@ -1,6 +1,6 @@
 
 cfg-vim-plugin-youcompleteme-setup() {
     sudo apt install -y cmake
-    cd ~/.vim/bundle/YouCompleteMe || exit
+    cd ~/.vim/bundle/YouCompleteMe
     python3 install.py --all
 }

@@ -1,4 +1,0 @@
-PATH="$HOME/bin:/usr/bin:/usr/local/bin:/bin:/usr/sbin:/usr/local/sbin:/usr/local/go/bin:/bin:/sbin:$HOME/go/bin:$HOME/bin/vim/bin:$HOME/helper:/usr/games"
-PATH+=":$HOME/.local/bin"
-CFG_PATH="$HOME/cfg"
-

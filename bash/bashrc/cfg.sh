@@ -2,7 +2,7 @@
 
 cfg-bash-update() {
 	find ~/.Config/bash/{bashrc,alias}/ -type f -executable | sort | xargs -L1 cat > ~/.bashrc
-	find ~/helper -type f -executable | xargs -L1 cat >> ~/.bashrc
+	find ~/.Config/helper/ -type f -executable | xargs -L1 cat >> ~/.bashrc
 	. ~/.bashrc
 }
 
@@ -19,7 +19,6 @@ cfg-tmux-tpm-setup() {
 cfg-vim-update() {
 	find ~/.Config/vim/vimrc -type f -executable | sort | xargs -L 1 cat > ~/.vimrc
 	find ~/.Config/vim/plugin -type f -executable | sort | xargs -L 1 cat >> ~/.vimrc
-	cfg-vim-plugin-update
 }
 
 cfg-vim-plugin-update() {
@@ -38,10 +37,4 @@ cfg-vim-plugin-setup() {
     fi
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 }
-
-if [ -d ~/.Config ]; then
-    echo ''
-else
-    git clone https://github.com/lloydie/Config.git ~/.Config
-fi
 

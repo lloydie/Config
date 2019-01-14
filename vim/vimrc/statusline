@@ -1,4 +1,4 @@
-let s:hidden_all = 0
+let s:hidden_all=1
 function! ToggleHiddenAll()
     if s:hidden_all  == 0
         let s:hidden_all = 1
@@ -18,8 +18,3 @@ endfunction
 nnoremap <S-h> :call ToggleHiddenAll()<CR>
 
 set laststatus=2
-set statusline=
-set statusline+=\ %l
-set statusline+=\ %m
-set statusline+=\ %f
-set statusline+=%=

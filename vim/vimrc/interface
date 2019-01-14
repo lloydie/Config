@@ -5,4 +5,4 @@ set mouse=a
 filetype plugin indent on
 
 set wildmenu 
-
+set wildmode=list,longest
