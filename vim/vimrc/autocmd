@@ -1,8 +1,15 @@
-"test7
 set shellcmdflag=-ic
 
-au BufWritePost .Config/tmux/tmux.conf/* silent !cfg-tmux-update
-autocmd BufWritePost .Config/vim/* silent !cfg-vim-update
-autocmd BufWritePost .vim/colors/* silent !cfg-vim-update
-autocmd BufWritePost .vimrc source $MYVIMRC
+au BufEnter ~/.Config/vim/* set filetype=vim
+au BufWritePost ~/.Config/vim/* silent! :!cfg-vim-update 
+au BufWritePost ~/.vim/colors/lloydie.vim source $MYVIMRC
+
+au BufWritePost ~/.Config/bash/* :!cfg-bash-update
+au BufWritePost ~/.Config/helper/* :!cfg-bash-update
+au BufWritePost ~/.Config/tmux/* :!cfg-tmux-update
+
+au BufWritePost ~/.Config/prometheus/prometheus.yml :exec "!docker restart prometheus"
+
+au BufWritePost ~/.Config/prometheus/prometheus.yml :exec !"docker restart prometheus"
+au BufWritePost .vimrc source $MYVIMRC
 

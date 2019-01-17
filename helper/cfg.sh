@@ -6,6 +6,12 @@ cfg-bash-update() {
 	. ~/.bashrc
 }
 
+cfg-bash-history-backup() {
+    date >> ~/log/bash_history
+    history >> ~/log/bash_history
+    history -c
+}
+
 cfg-tmux-update() {
 	find ~/.Config/tmux/tmux.conf/* -type f -executable | sort | xargs cat > ~/.tmux.conf
 	tmux source ~/.tmux.conf

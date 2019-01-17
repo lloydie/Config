@@ -1,0 +1,7 @@
+#!/bin/bash
+
+netstat-geo () {
+
+    netstat -nt | tail -n +3 | awk '{print $5}' | awk 'BEGIN{FS=":"}{print $1}'
+
+}

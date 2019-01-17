@@ -1,1 +1,1 @@
-alias firefox="$HOME/bin/firefox --profile $HOME/cfg/firefox/profile"
+alias firefox="$HOME/bin/firefox --profile $HOME/.Config/firefox/profile 2&>> $HOME/log/firefox &"

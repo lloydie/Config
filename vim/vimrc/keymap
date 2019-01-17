@@ -3,30 +3,18 @@ map <Leader>Q <esc>:q!<cr>
 map <Leader>q <esc>:wq<cr>
 map <Leader>w <esc>:w<cr>
 map <Leader>n <esc>:vnew<cr>
-
-" Helper
-map <Leader>sa <esc>:@s
-
+map <Leader>c ciw
 " Execute
 map <Leader>r <esc>:!%:p<cr>
 map <Leader>R <esc>:!%:p
 
 " Search Replace
-map <Leader>sr <esc>:%s/FROM/TO/gc
 
 " hjkl
 noremap <Up> <nop>
 noremap <Down> <nop>
 noremap <Left> <nop>
 noremap <Right> <nop>
-
-inoremap <Up> <nop>
-inoremap <Down> <nop>
-inoremap <Left> <nop>
-inoremap <Right> <nop>
-
-" Shortcuts
-map <S-F3> <esc>:
 
 " Remove Trailing Whitespace
 map <Leader>rws	<esc>:%s/\s\+$//e<cr>

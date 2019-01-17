@@ -1,0 +1,12 @@
+get() {
+_args='-c -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+for _url in $(cat ~/in/get); do
+	youtube-dl $_args $_url
+	done
+}
+
+get-add() {
+    echo "$*" >> ~/in/get
+}
+
+
