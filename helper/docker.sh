@@ -8,10 +8,11 @@ cfg-docker-uninstall() {
 }
 
 cfg-docker-machine-install() {
-    base=https://github.com/docker/machine/releases/download/v0.16.0 &&
-    curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
-    sudo install /tmp/docker-machine /usr/local/bin/docker-machine
-    echo 'getting boot2docker v18.06.1-ce'
+	base=https://github.com/docker/machine/releases/download/v0.16.0 &&
+  curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
+  sudo install /tmp/docker-machine /usr/local/bin/docker-machine    
+
+echo 'getting boot2docker v18.06.1-ce'
     wget https://github.com/boot2docker/boot2docker/releases/download/v18.06.1-ce/boot2docker.iso -O ~/.docker/machine/cache/boot2docker-18.06.1-ce.iso
 }
 
@@ -21,6 +22,7 @@ cfg-docker-machine-install-bash-completions() {
     do
     sudo wget "$base/contrib/completion/bash/${i}" -P /etc/bash_completion.d
     done
+    . ~/.bashrc
 }
 
 cfg-docker-install() {
@@ -179,4 +181,13 @@ docker-ca-create() {
     export DOCKER_HOST=tcp://$HOST:2376 DOCKER_TLS_VERIFY=1
 
     docker ps
+}
+
+docker-volume-ls-unknown() {
+    docker volume ls -q | awk 'length($1) == 64'
+}
+
+docker-volume-ls() {
+    _volume="$*"
+    docker volume inspect $_volume | awk '/Mountpoint/ {print substr($2,2,(length($2) - 3))}' | xargs sudo ls -R
 }

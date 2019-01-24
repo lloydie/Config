@@ -1,0 +1,10 @@
+[Unit]
+Description=
+
+[Service]
+User=
+EnvironmentFile=/etc/sysconfig/node_exporter
+ExecStart=/usr/sbin/node_exporter 
+
+[Install]
+WantedBy=multi-user.target

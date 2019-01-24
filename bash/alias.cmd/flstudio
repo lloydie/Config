@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/share/playonlinux/playonlinux --run "FL64" %F
+

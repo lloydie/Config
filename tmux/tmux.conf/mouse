@@ -1,3 +1,5 @@
+set -g mouse on
+
 # Toggle mouse on with ^B m
 bind m set -g mouse on \;\
   display 'Mouse: ON'

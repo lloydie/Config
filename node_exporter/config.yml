@@ -1,0 +1,6 @@
+process_names:
+  - comm: 
+    - firefox
+    - bash
+    - node_exporter
+    - tmux

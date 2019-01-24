@@ -1,0 +1,12 @@
+docker run \
+  -d \
+  -p 3000:3000 \
+  --name=grafana \
+  -v grafana:/var/lib/grafana \
+  -e "GF_SERVER_ROOT_URL=http://localhost" \
+  -e "GF_SECURITY_ADMIN_PASSWORD=rgb21872" \
+  grafana/grafana
+
+
+#docker exec grafana grafana-cli admin reset-admin-password --homepath "/usr/share/grafana" newpass
+

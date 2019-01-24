@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 cfg-bash-update() {
-	find ~/.Config/bash/{bashrc,alias}/ -type f -executable | sort | xargs -L1 cat > ~/.bashrc
-	find ~/.Config/helper/ -type f -executable | xargs -L1 cat >> ~/.bashrc
+	find ~/cfg/bash/{bashrc,alias}/ -type f -executable | sort | xargs -L1 cat > ~/.bashrc
+	find ~/cfg/helper/ -type f -executable | xargs -L1 cat >> ~/.bashrc
 	. ~/.bashrc
 }
 
@@ -13,7 +13,7 @@ cfg-bash-history-backup() {
 }
 
 cfg-tmux-update() {
-	find ~/.Config/tmux/tmux.conf/* -type f -executable | sort | xargs cat > ~/.tmux.conf
+	find ~/cfg/tmux/tmux.conf/* -type f -executable | sort | xargs cat > ~/.tmux.conf
 	tmux source ~/.tmux.conf
 }
 
@@ -23,8 +23,8 @@ cfg-tmux-tpm-setup() {
 }
 
 cfg-vim-update() {
-	find ~/.Config/vim/vimrc -type f -executable | sort | xargs -L 1 cat > ~/.vimrc
-	find ~/.Config/vim/plugin -type f -executable | sort | xargs -L 1 cat >> ~/.vimrc
+	find ~/cfg/vim/vimrc -type f -executable | sort | xargs -L 1 cat > ~/.vimrc
+	find ~/cfg/vim/plugin -type f -executable | sort | xargs -L 1 cat >> ~/.vimrc
 }
 
 cfg-vim-plugin-update() {

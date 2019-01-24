@@ -1,0 +1,8 @@
+# docker volume create prometheus
+
+docker run \
+    	--name prometheus \
+	--restart always \
+	-d -p 9090:9090 \
+    	-v prometheus:/etc/prometheus \
+    	prom/prometheus \

@@ -1,6 +1,0 @@
-#!/bin/bash
-docker stop grafana prometheus
-docker rm grafana prometheus
-docker run  --name prometheus -d -p 9090:9090 -v /home/i/.Config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
-docker run --name grafana -d -p 3000:3000 grafana/grafana
-
