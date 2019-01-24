@@ -1,11 +1,4 @@
-firefox/
-docker/
-login/
-polybar/
-sensors/
-vault/
-x11/
-consul/
-node_exporter/
-prometheus/
-jsp/
+/*
+!/vim
+!/bash
+!/tmux
