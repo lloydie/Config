@@ -1,2 +1,0 @@
-xmodmap -e 'clear lock'
-xmodmap -e 'add Lock = Escape'

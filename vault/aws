@@ -1,6 +1,0 @@
-vault write aws/config/root \
-    access_key=AKIAI2KN57BABJOZSQIA \
-    secret_key=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 \
-    region=us-east-1
-
-
