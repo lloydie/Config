@@ -1,0 +1,9 @@
+function! FmtText80cols()
+    gg
+    v
+    G
+    gq
+endfunction
+
+nnoremap <S-80> :call FmtText80cols()<cr>
+

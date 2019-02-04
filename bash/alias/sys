@@ -1,4 +1,0 @@
-alias restart-x='sudo service sddm restart'
-
-alias free='free -h'
-alias free='free -h | head -n 2'

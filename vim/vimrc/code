@@ -14,12 +14,12 @@ set shiftwidth=4
 " →» ◀▸ ←→ ❮❯
 " ─━ ┄┅ ┈┉
 " │┃ ╎ ┆┇ ┊┋
-"set listchars=tab:▸\ 
-"set listchars+=trail:·
-"set listchars+=eol:↴
-"set listchars+=extends:…
-"set listchars+=precedes:…
-"set fillchars+=vert:│
-"set list
+set listchars=tab:»\  
+set listchars+=trail:·
+set listchars+=eol:↴
+set listchars+=extends:…
+set listchars+=precedes:…
+set fillchars+=vert:│
+set list
 
 set splitbelow splitright

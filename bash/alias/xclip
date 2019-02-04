@@ -1,1 +1,11 @@
-alias Copy='xclip -sel clip <'
+alert
+apt
+cd
+chmod
+diff
+ls
+nmcli
+sudo
+sys
+wine
+xclip

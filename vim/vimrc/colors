@@ -2,3 +2,6 @@ colorscheme lloydie2
 
 set cursorline
 
+"call matchadd('ColorColumn', '\%>80v', 100)
+call matchadd('ColorColumn', '\%81v', 100)
+

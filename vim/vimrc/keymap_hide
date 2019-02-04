@@ -1,0 +1,2 @@
+
+nnoremap <S-h> :call ToggleHiddenAll()<CR>
